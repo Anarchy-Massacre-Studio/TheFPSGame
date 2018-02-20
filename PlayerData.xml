@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PlayerData>
+  <Color>
+    <MainColor>
+      <R>1</R>
+      <G>1</G>
+      <B>1</B>
+    </MainColor>
+    <Metallic>0</Metallic>
+    <Smoothness>0.5</Smoothness>
+    <Emission>
+      <R>0</R>
+      <G>0</G>
+      <B>0</B>
+    </Emission>
+  </Color>
+</PlayerData>
