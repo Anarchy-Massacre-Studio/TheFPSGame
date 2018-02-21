@@ -23,6 +23,7 @@ public partial class MenuButtonEvents : MonoBehaviour
 
     private enum MainMenuButtons : int { play, equip, course, setting, about, exit }
     private enum EquipMenuButtons : int { color, weapon, equip }
+    private enum EquipColorMenuButtons : int { color, metallic, smooth, shine }
 
     public void MainMenuEvents(int i)
     {
@@ -80,6 +81,83 @@ public partial class MenuButtonEvents : MonoBehaviour
                 break;
         }
     }
+    public void EquipColorMenuEvents(int i)
+    {
+        RectTransform color_color = EquipMenu_Color.transform.GetChild(0).GetComponent<RectTransform>();
+        RectTransform color_metallic = EquipMenu_Color.transform.GetChild(1).GetComponent<RectTransform>();
+        RectTransform color_smooth = EquipMenu_Color.transform.GetChild(2).GetComponent<RectTransform>();
+        RectTransform color_shine = EquipMenu_Color.transform.GetChild(3).GetComponent<RectTransform>();
+
+        RectTransform[] color_buttons = new RectTransform[4] { color_color, color_metallic, color_smooth, color_shine };
+
+        switch (i)
+        {
+            case (int)EquipColorMenuButtons.color:
+                foreach(var c in color_buttons)
+                {
+                    if(c == color_color)
+                    {
+                        c.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
+                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, -40f), 0.3f);
+                    }
+                    else
+                    {
+                        c.DOLocalRotate(new Vector3(0, 20f, 0), 0.3f);
+                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, 0f), 0.3f);
+                    }
+                }
+                break;
+
+            case (int)EquipColorMenuButtons.metallic:
+                foreach (var c in color_buttons)
+                {
+                    if (c == color_metallic)
+                    {
+                        c.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
+                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, -40f), 0.3f);
+                    }
+                    else
+                    {
+                        c.DOLocalRotate(new Vector3(0, 20f, 0), 0.3f);
+                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, 0f), 0.3f);
+                    }
+                }
+                break;
+
+            case (int)EquipColorMenuButtons.smooth:
+                foreach (var c in color_buttons)
+                {
+                    if (c == color_smooth)
+                    {
+                        c.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
+                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, -40f), 0.3f);
+                    }
+                    else
+                    {
+                        c.DOLocalRotate(new Vector3(0, 20f, 0), 0.3f);
+                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, 0f), 0.3f);
+                    }
+                }
+                break;
+
+            case (int)EquipColorMenuButtons.shine:
+                foreach (var c in color_buttons)
+                {
+                    if (c == color_shine)
+                    {
+                        c.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
+                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, -40f), 0.3f);
+                    }
+                    else
+                    {
+                        c.DOLocalRotate(new Vector3(0, 20f, 0), 0.3f);
+                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, 0f), 0.3f);
+                    }
+                }
+                break;
+        }
+    }
+
     private string parent_name = null;
     public void Back_Equip()
     {

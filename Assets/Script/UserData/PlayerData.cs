@@ -29,10 +29,10 @@ public static class PlayerData
                             new XElement("B", "1")),
                         new XElement("Metallic", "0"),
                         new XElement("Smoothness", "0.5"),
-                        new XElement("Emission", 
+                        new XElement("Emission",
                             new XElement("R", "0"),
                             new XElement("G", "0"),
-                            new XElement("B", "0")))));
+                            new XElement("B", "0")))));   
 
             playerData = xDocument;
             xDocument.Save("PlayerData.xml");
