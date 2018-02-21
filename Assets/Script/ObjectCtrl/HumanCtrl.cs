@@ -25,6 +25,8 @@ public class HumanCtrl : ObjectCtrl
 
     float rotationY = 0F;
 
+    public bool squat_state = false;    //角色蹲站状态，默认站
+
     protected virtual void Start()
     {
         Animator = GetComponent<Animator>();
@@ -40,15 +42,24 @@ public class HumanCtrl : ObjectCtrl
             //Debug.Log(CharacterController.isGrounded);
             //人物控制。
             #region human
-            //移动 w，a，s，d
-            Animator.SetFloat("MoveX", Input.GetAxis("Vertical"));
-            Animator.SetFloat("MoveY", Input.GetAxis("Horizontal"));
+            //获取按键 w,a,s,d,shift,c
+            float move_x_Input = Input.GetAxis("Horizontal");
+            float move_y_Input = Input.GetAxis("Vertical");
+            float run_Input = ((move_y_Input >= 0.5 && Input.GetKey(KeyCode.LeftShift)) ? 1 : 0);//返回1:0
+            squat_state = ((Input.GetKeyDown(KeyCode.C)) ? squat_state = !squat_state : squat_state);//返回squat_state
 
-            //快跑 shift
-            if (Input.GetAxis("Shift") > 0 && Input.GetAxis("Vertical") > 0)
+            //移动动画 w，a，s，d,shift
+            Animator.SetFloat("MoveX", move_x_Input);
+            Animator.SetFloat("MoveY", move_y_Input+ run_Input);
+
+            //蹲起+移动动画  w，a，s，d,c
+            Animator.SetBool("Squat", squat_state);
+            if (squat_state)
             {
-                Animator.SetFloat("MoveX", Input.GetAxis("Vertical") + Input.GetAxis("Shift"));
+                Animator.SetFloat("SquatX", move_x_Input);
+                Animator.SetFloat("SquatY", move_y_Input);
             }
+
             #endregion
 
             #region camera
