@@ -432,6 +432,8 @@ MonoBehaviour:
   sensitivityY: 10
   minimumY: -60
   maximumY: 60
+  squat_state: 0
+  move_speed: 15
 --- !u!136 &683323324
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -532,6 +534,11 @@ Prefab:
         type: 2}
       propertyPath: m_Convex
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 64979650123527444, guid: 0913398a9bb06ed4ba2ec487f6433fae,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 64034347170567606, guid: 0913398a9bb06ed4ba2ec487f6433fae, type: 2}
