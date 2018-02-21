@@ -86,16 +86,32 @@ public static class PlayerData
                 Application.Quit();
             }
 
-            Debug.Log(xDocument);
-
             var query = from q in xDocument.Descendants("Data")
                         select q.Value;
 
-            foreach (var v in query)
+            String[] color_hex_string = new String[136];
+
+            for(int i = 0; i < query.Count(); i++)
             {
-                Debug.Log(v);
+                color_hex_string[i] = query.ElementAt(i);
+                char[] c = new char[7];
+                c = color_hex_string[i].ToCharArray();
+
+                int[] c_int = new int[6];
+                for(int j = 0; j < c_int.Length; j++)
+                {
+                    c_int[j] = Convert.ToInt32(c[j+1].ToString(), 16);
+                }
+
+                float r = (c_int[0] * 16 + c_int[1]) / 255f;
+                float g = (c_int[2] * 16 + c_int[3]) / 255f;
+                float b = (c_int[4] * 16 + c_int[5]) / 255f;
+
+                ColorTable = new Color[136];
+                ColorTable[i] = new Color(r, g, b);
             }
-            return null;
+
+            return ColorTable;
         }
         else
         {
