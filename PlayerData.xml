@@ -6,12 +6,12 @@
       <G>1</G>
       <B>1</B>
     </MainColor>
-    <Metallic>0.7</Metallic>
-    <Smoothness>0.8</Smoothness>
+    <Metallic>0.18</Metallic>
+    <Smoothness>0.36</Smoothness>
     <Emission>
       <R>0</R>
-      <G>0</G>
-      <B>0</B>
+      <G>0.2137929</G>
+      <B>1</B>
     </Emission>
   </Color>
 </PlayerData>

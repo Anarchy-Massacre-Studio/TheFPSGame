@@ -14,6 +14,7 @@ public static class PlayerData
     static PlayerData()
     {
         PlayerMaterial = Resources.Load<Material>("Player");
+        
         try
         {
             playerData = XDocument.Load("PlayerData.xml");
@@ -43,10 +44,7 @@ public static class PlayerData
             File.WriteAllText("Error_Log", ex.Message);
             Application.Quit();
         }
-        finally
-        {
-            
-        }
+
         XElement x = playerData.Element("PlayerData").Element("Color");
 
         float m_r = Convert.ToSingle(x.Element("MainColor").Element("R").Value);

@@ -85,22 +85,22 @@ MonoBehaviour:
   eyeAdaptation:
     m_Enabled: 0
     m_Settings:
-      lowPercent: 45
-      highPercent: 95
+      lowPercent: 49
+      highPercent: 99
       minLuminance: -5
-      maxLuminance: 1
-      keyValue: 0.25
+      maxLuminance: 1.11
+      keyValue: 0
       dynamicKeyValue: 1
       adaptationType: 0
       speedUp: 2
       speedDown: 1
-      logMin: -8
-      logMax: 4
+      logMin: -9
+      logMax: 5
   bloom:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.5
+        intensity: 0.2
         threshold: 1.1
         softKnee: 0.5
         radius: 4
@@ -120,7 +120,7 @@ MonoBehaviour:
         neutralWhiteLevel: 5.3
         neutralWhiteClip: 10
       basic:
-        postExposure: 0
+        postExposure: 1
         temperature: 0
         tint: 0
         hueShift: 0
