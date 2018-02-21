@@ -26,6 +26,7 @@ public class HumanCtrl : ObjectCtrl
     float rotationY = 0F;
 
     public bool squat_state = false;    //角色蹲站状态，默认站
+    public float move_speed=10;            //角色移动速度
 
     protected virtual void Start()
     {
@@ -39,19 +40,22 @@ public class HumanCtrl : ObjectCtrl
         //被玩家控制时的动作。
         if (IsCtrl)
         {
-            //Debug.Log(CharacterController.isGrounded);
-            //人物控制。
-            #region human
+            //人物按键输入
+            #region humanKeyInput
             //获取按键 w,a,s,d,shift,c
             float move_x_Input = Input.GetAxis("Horizontal");
             float move_y_Input = Input.GetAxis("Vertical");
             float run_Input = ((move_y_Input >= 0.5 && Input.GetKey(KeyCode.LeftShift)) ? 1 : 0);//返回1:0
             squat_state = ((Input.GetKeyDown(KeyCode.C)) ? squat_state = !squat_state : squat_state);//返回squat_state
+            #endregion
 
+            //Debug.Log(CharacterController.isGrounded);
+
+            //人物动画控制
+            #region humanAnimation
             //移动动画 w，a，s，d,shift
             Animator.SetFloat("MoveX", move_x_Input);
             Animator.SetFloat("MoveY", move_y_Input+ run_Input);
-
             //蹲起+移动动画  w，a，s，d,c
             Animator.SetBool("Squat", squat_state);
             if (squat_state)
@@ -59,7 +63,14 @@ public class HumanCtrl : ObjectCtrl
                 Animator.SetFloat("SquatX", move_x_Input);
                 Animator.SetFloat("SquatY", move_y_Input);
             }
+            #endregion
 
+            //人物移动
+            #region humanMove
+            //移动w，a，s，d,shift
+            float squat_move_speed = ((squat_state) ? move_x_Input*0.5f : move_x_Input);//返回蹲或起的移动速度
+            transform.Translate(new Vector3(0, 0, move_y_Input + run_Input) * Time.deltaTime * squat_move_speed);     //前后移动
+            transform.Translate(new Vector3(move_x_Input, 0, 0) * Time.deltaTime * squat_move_speed);                //左右移动
             #endregion
 
             #region camera
