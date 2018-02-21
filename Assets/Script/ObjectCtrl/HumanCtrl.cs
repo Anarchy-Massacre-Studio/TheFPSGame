@@ -4,10 +4,10 @@ using UnityEngine;
 /// <summary>
 /// 人形生物的控制，包括动画。
 /// </summary>
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(CapsuleCollider))]
+[RequireComponent(typeof(Rigidbody))]
 public class HumanCtrl : ObjectCtrl
 {
-    public CharacterController CharacterController;
     public Animator Animator;
     public Transform Refer;
 
@@ -27,7 +27,6 @@ public class HumanCtrl : ObjectCtrl
 
     protected virtual void Start()
     {
-        CharacterController = GetComponent<CharacterController>();
         Animator = GetComponent<Animator>();
     }
     /// <summary>
@@ -42,30 +41,13 @@ public class HumanCtrl : ObjectCtrl
             //人物控制。
             #region human
             //移动 w，a，s，d
-            CharacterController.Move(transform.forward * Time.deltaTime * Input.GetAxis("Vertical") * Speed);
             Animator.SetFloat("MoveX", Input.GetAxis("Vertical"));
-
-            CharacterController.Move(transform.right * Time.deltaTime * Input.GetAxis("Horizontal") * Speed);
             Animator.SetFloat("MoveY", Input.GetAxis("Horizontal"));
 
             //快跑 shift
             if (Input.GetAxis("Shift") > 0 && Input.GetAxis("Vertical") > 0)
             {
-                CharacterController.Move(transform.forward * Time.deltaTime * Input.GetAxis("Vertical") * (Speed + 20) * Input.GetAxis("Shift"));
                 Animator.SetFloat("MoveX", Input.GetAxis("Vertical") + Input.GetAxis("Shift"));
-            }
-
-            //跳跃 空格
-            if(Input.GetKeyDown(KeyCode.Space) && CharacterController.isGrounded)
-            {
-                Debug.Log("Jump");
-                CharacterController.Move(transform.up * 5);
-            }
-
-            //重力
-            if(!CharacterController.isGrounded)
-            {
-                CharacterController.Move(CharacterController.velocity - Vector3.up * 9.8f);
             }
             #endregion
 
