@@ -1,139 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Table>
 <Data>#FFB6C1</Data>
-<Data ss:Type="String">#FFC0CB</Data>
-<Data ss:Type="String">#DC143C</Data>
-<Data ss:Type="String">#FFF0F5</Data>
-<Data ss:Type="String">#DB7093</Data>
-<Data ss:Type="String">#FF69B4</Data>
-<Data ss:Type="String">#FF1493</Data>
-<Data ss:Type="String">#C71585</Data>
-<Data ss:Type="String">#DA70D6</Data>
-<Data ss:Type="String">#D8BFD8</Data>
-<Data ss:Type="String">#DDA0DD</Data>
-<Data ss:Type="String">#EE82EE</Data>
-<Data ss:Type="String">#FF00FF</Data>
-<Data ss:Type="String">#FF00FF</Data>
-<Data ss:Type="String">#8B008B</Data>
-<Data ss:Type="String">#800080</Data>
-<Data ss:Type="String">#BA55D3</Data>
-<Data ss:Type="String">#9400D3</Data>
-<Data ss:Type="String">#9932CC</Data>
-<Data ss:Type="String">#4B0082</Data>
-<Data ss:Type="String">#8A2BE2</Data>
-<Data ss:Type="String">#9370DB</Data>
-<Data ss:Type="String">#7B68EE</Data>
-<Data ss:Type="String">#6A5ACD</Data>
-<Data ss:Type="String">#483D8B</Data>
-<Data ss:Type="String">#E6E6FA</Data>
-<Data ss:Type="String">#F8F8FF</Data>
-<Data ss:Type="String">#0000FF</Data>
-<Data ss:Type="String">#0000CD</Data>
-<Data ss:Type="String">#191970</Data>
-<Data ss:Type="String">#00008B</Data>
-<Data ss:Type="String">#000080</Data>
-<Data ss:Type="String">#4169E1</Data>
-<Data ss:Type="String">#6495ED</Data>
-<Data ss:Type="String">#B0C4DE</Data>
-<Data ss:Type="String">#778899</Data>
-<Data ss:Type="String">#708090</Data>
-<Data ss:Type="String">#1E90FF</Data>
-<Data ss:Type="String">#F0F8FF</Data>
-<Data ss:Type="String">#4682B4</Data>
-<Data ss:Type="String">#87CEFA</Data>
-<Data ss:Type="String">#87CEEB</Data>
-<Data ss:Type="String">#00BFFF</Data>
-<Data ss:Type="String">#ADD8E6</Data>
-<Data ss:Type="String">#B0E0E6</Data>
-<Data ss:Type="String">#5F9EA0</Data>
-<Data ss:Type="String">#F0FFFF</Data>
-<Data ss:Type="String">#E1FFFF</Data>
-<Data ss:Type="String">#AFEEEE</Data>
-<Data ss:Type="String">#00FFFF</Data>
-<Data ss:Type="String">#00FFFF</Data>
-<Data ss:Type="String">#00CED1</Data>
-<Data ss:Type="String">#2F4F4F</Data>
-<Data ss:Type="String">#008B8B</Data>
-<Data ss:Type="String">#008080</Data>
-<Data ss:Type="String">#48D1CC</Data>
-<Data ss:Type="String">#20B2AA</Data>
-<Data ss:Type="String">#40E0D0</Data>
-<Data ss:Type="String">#7FFFAA</Data>
-<Data ss:Type="String">#00FA9A</Data>
-<Data ss:Type="String">#F5FFFA</Data>
-<Data ss:Type="String">#00FF7F</Data>
-<Data ss:Type="String">#3CB371</Data>
-<Data ss:Type="String">#2E8B57</Data>
-<Data ss:Type="String">#F0FFF0</Data>
-<Data ss:Type="String">#90EE90</Data>
-<Data ss:Type="String">#98FB98</Data>
-<Data ss:Type="String">#8FBC8F</Data>
-<Data ss:Type="String">#32CD32</Data>
-<Data ss:Type="String">#00FF00</Data>
-<Data ss:Type="String">#228B22</Data>
-<Data ss:Type="String">#008000</Data>
-<Data ss:Type="String">#006400</Data>
-<Data ss:Type="String">#7FFF00</Data>
-<Data ss:Type="String">#7CFC00</Data>
-<Data ss:Type="String">#ADFF2F</Data>
-<Data ss:Type="String">#556B2F</Data>
-<Data ss:Type="String">#6B8E23</Data>
-<Data ss:Type="String">#FAFAD2</Data>
-<Data ss:Type="String">#FFFFF0</Data>
-<Data ss:Type="String">#FFFFE0</Data>
-<Data ss:Type="String">#FFFF00</Data>
-<Data ss:Type="String">#808000</Data>
-<Data ss:Type="String">#BDB76B</Data>
-<Data ss:Type="String">#FFFACD</Data>
-<Data ss:Type="String">#EEE8AA</Data>
-<Data ss:Type="String">#F0E68C</Data>
-<Data ss:Type="String">#FFD700</Data>
-<Data ss:Type="String">#FFF8DC</Data>
-<Data ss:Type="String">#DAA520</Data>
-<Data ss:Type="String">#FFFAF0</Data>
-<Data ss:Type="String">#FDF5E6</Data>
-<Data ss:Type="String">#F5DEB3</Data>
-<Data ss:Type="String">#FFE4B5</Data>
-<Data ss:Type="String">#FFA500</Data>
-<Data ss:Type="String">#FFEFD5</Data>
-<Data ss:Type="String">#FFEBCD</Data>
-<Data ss:Type="String">#FFDEAD</Data>
-<Data ss:Type="String">#FAEBD7</Data>
-<Data ss:Type="String">#D2B48C</Data>
-<Data ss:Type="String">#DEB887</Data>
-<Data ss:Type="String">#FFE4C4</Data>
-<Data ss:Type="String">#FF8C00</Data>
-<Data ss:Type="String">#FAF0E6</Data>
-<Data ss:Type="String">#CD853F</Data>
-<Data ss:Type="String">#FFDAB9</Data>
-<Data ss:Type="String">#F4A460</Data>
-<Data ss:Type="String">#D2691E</Data>
-<Data ss:Type="String">#8B4513</Data>
-<Data ss:Type="String">#FFF5EE</Data>
-<Data ss:Type="String">#A0522D</Data>
-<Data ss:Type="String">#FFA07A</Data>
-<Data ss:Type="String">#FF7F50</Data>
-<Data ss:Type="String">#FF4500</Data>
-<Data ss:Type="String">#E9967A</Data>
-<Data ss:Type="String">#FF6347</Data>
-<Data ss:Type="String">#FFE4E1</Data>
-<Data ss:Type="String">#FA8072</Data>
-<Data ss:Type="String">#FFFAFA</Data>
-<Data ss:Type="String">#F08080</Data>
-<Data ss:Type="String">#BC8F8F</Data>
-<Data ss:Type="String">#CD5C5C</Data>
-<Data ss:Type="String">#FF0000</Data>
-<Data ss:Type="String">#A52A2A</Data>
-<Data ss:Type="String">#B22222</Data>
-<Data ss:Type="String">#8B0000</Data>
-<Data ss:Type="String">#800000</Data>
-<Data ss:Type="String">#FFFFFF</Data>
-<Data ss:Type="String">#F5F5F5</Data>
-<Data ss:Type="String">#DCDCDC</Data>
-<Data ss:Type="String">#D3D3D3</Data>
-<Data ss:Type="String">#C0C0C0</Data>
-<Data ss:Type="String">#A9A9A9</Data>
-<Data ss:Type="String">#808080</Data>
-<Data ss:Type="String">#696969</Data>
-<Data ss:Type="String">#000000</Data>
+<Data>#FFC0CB</Data>
+<Data>#DC143C</Data>
+<Data>#FFF0F5</Data>
+<Data>#DB7093</Data>
+<Data>#FF69B4</Data>
+<Data>#FF1493</Data>
+<Data>#C71585</Data>
+<Data>#DA70D6</Data>
+<Data>#D8BFD8</Data>
+<Data>#DDA0DD</Data>
+<Data>#EE82EE</Data>
+<Data>#FF00FF</Data>
+<Data>#FF00FF</Data>
+<Data>#8B008B</Data>
+<Data>#800080</Data>
+<Data>#BA55D3</Data>
+<Data>#9400D3</Data>
+<Data>#9932CC</Data>
+<Data>#4B0082</Data>
+<Data>#8A2BE2</Data>
+<Data>#9370DB</Data>
+<Data>#7B68EE</Data>
+<Data>#6A5ACD</Data>
+<Data>#483D8B</Data>
+<Data>#E6E6FA</Data>
+<Data>#F8F8FF</Data>
+<Data>#0000FF</Data>
+<Data>#0000CD</Data>
+<Data>#191970</Data>
+<Data>#00008B</Data>
+<Data>#000080</Data>
+<Data>#4169E1</Data>
+<Data>#6495ED</Data>
+<Data>#B0C4DE</Data>
+<Data>#778899</Data>
+<Data>#708090</Data>
+<Data>#1E90FF</Data>
+<Data>#F0F8FF</Data>
+<Data>#4682B4</Data>
+<Data>#87CEFA</Data>
+<Data>#87CEEB</Data>
+<Data>#00BFFF</Data>
+<Data>#ADD8E6</Data>
+<Data>#B0E0E6</Data>
+<Data>#5F9EA0</Data>
+<Data>#F0FFFF</Data>
+<Data>#E1FFFF</Data>
+<Data>#AFEEEE</Data>
+<Data>#00FFFF</Data>
+<Data>#00FFFF</Data>
+<Data>#00CED1</Data>
+<Data>#2F4F4F</Data>
+<Data>#008B8B</Data>
+<Data>#008080</Data>
+<Data>#48D1CC</Data>
+<Data>#20B2AA</Data>
+<Data>#40E0D0</Data>
+<Data>#7FFFAA</Data>
+<Data>#00FA9A</Data>
+<Data>#F5FFFA</Data>
+<Data>#00FF7F</Data>
+<Data>#3CB371</Data>
+<Data>#2E8B57</Data>
+<Data>#F0FFF0</Data>
+<Data>#90EE90</Data>
+<Data>#98FB98</Data>
+<Data>#8FBC8F</Data>
+<Data>#32CD32</Data>
+<Data>#00FF00</Data>
+<Data>#228B22</Data>
+<Data>#008000</Data>
+<Data>#006400</Data>
+<Data>#7FFF00</Data>
+<Data>#7CFC00</Data>
+<Data>#ADFF2F</Data>
+<Data>#556B2F</Data>
+<Data>#6B8E23</Data>
+<Data>#FAFAD2</Data>
+<Data>#FFFFF0</Data>
+<Data>#FFFFE0</Data>
+<Data>#FFFF00</Data>
+<Data>#808000</Data>
+<Data>#BDB76B</Data>
+<Data>#FFFACD</Data>
+<Data>#EEE8AA</Data>
+<Data>#F0E68C</Data>
+<Data>#FFD700</Data>
+<Data>#FFF8DC</Data>
+<Data>#DAA520</Data>
+<Data>#FFFAF0</Data>
+<Data>#FDF5E6</Data>
+<Data>#F5DEB3</Data>
+<Data>#FFE4B5</Data>
+<Data>#FFA500</Data>
+<Data>#FFEFD5</Data>
+<Data>#FFEBCD</Data>
+<Data>#FFDEAD</Data>
+<Data>#FAEBD7</Data>
+<Data>#D2B48C</Data>
+<Data>#DEB887</Data>
+<Data>#FFE4C4</Data>
+<Data>#FF8C00</Data>
+<Data>#FAF0E6</Data>
+<Data>#CD853F</Data>
+<Data>#FFDAB9</Data>
+<Data>#F4A460</Data>
+<Data>#D2691E</Data>
+<Data>#8B4513</Data>
+<Data>#FFF5EE</Data>
+<Data>#A0522D</Data>
+<Data>#FFA07A</Data>
+<Data>#FF7F50</Data>
+<Data>#FF4500</Data>
+<Data>#E9967A</Data>
+<Data>#FF6347</Data>
+<Data>#FFE4E1</Data>
+<Data>#FA8072</Data>
+<Data>#FFFAFA</Data>
+<Data>#F08080</Data>
+<Data>#BC8F8F</Data>
+<Data>#CD5C5C</Data>
+<Data>#FF0000</Data>
+<Data>#A52A2A</Data>
+<Data>#B22222</Data>
+<Data>#8B0000</Data>
+<Data>#800000</Data>
+<Data>#FFFFFF</Data>
+<Data>#F5F5F5</Data>
+<Data>#DCDCDC</Data>
+<Data>#D3D3D3</Data>
+<Data>#C0C0C0</Data>
+<Data>#A9A9A9</Data>
+<Data>#808080</Data>
+<Data>#696969</Data>
+<Data>#000000</Data>
 </Table>
