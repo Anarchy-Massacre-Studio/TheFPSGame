@@ -28,8 +28,9 @@ public class HumanCtrl : ObjectCtrl
     public bool squat_state = false;    //角色蹲站状态，默认站
     public float move_speed=15;            //角色移动速度
     public bool climb_1_check = false;        //检测前方是否是小墙
-    public bool jump = false;               //跳跃中？
-    public Transform wall_Check;           //墙壁检测空物体
+    public bool gorundFrom_check = false;         //在地面？
+    public Transform wall_Check;           //墙壁检测器官
+    public Transform ground_Check;           //地面检测器官
     public CapsuleCollider cc;              //角色碰撞器
 
     protected virtual void Start()
@@ -57,8 +58,9 @@ public class HumanCtrl : ObjectCtrl
             //Debug.Log(CharacterController.isGrounded);
 
             //墙壁检测
-            climb_1_check = ((Physics.Linecast(transform.position, wall_Check.position, 1 << LayerMask.NameToLayer("Wall_1"))) ? climb_1_check =true : climb_1_check = false); 
-
+            climb_1_check = ((Physics.Linecast(transform.position, wall_Check.position, 1 << LayerMask.NameToLayer("Wall_1"))) ? climb_1_check =true : climb_1_check = false);
+            //地面检测
+            gorundFrom_check = ((Physics.Linecast(transform.position, ground_Check.position, 1 << LayerMask.NameToLayer("Ground"))) ? gorundFrom_check = true : gorundFrom_check = false);
             //人物动画控制
             #region humanAnimation
             //移动动画 w，a，s，d,shift
@@ -96,7 +98,8 @@ public class HumanCtrl : ObjectCtrl
             //移动w，a，s，d,shift
             float squat_y_move_speed = ((squat_state) ? move_y_Input * 0.5f : move_y_Input);//返回蹲或起的前后移动速度
             float squat_x_move_speed = ((squat_state) ? move_x_Input * 0.5f : move_x_Input);//返回蹲或起的左右移动速度
-            transform.Translate(new Vector3(0, 0, squat_y_move_speed + run_Input) * Time.deltaTime * (move_speed+20));     //前后移动
+            float run_speed = ((run_Input == 1) ? 20 : 0);
+            transform.Translate(new Vector3(0, 0, squat_y_move_speed + run_Input) * Time.deltaTime * (move_speed+ run_speed));     //前后移动
             transform.Translate(new Vector3(squat_x_move_speed, 0, 0) * Time.deltaTime * move_speed);                //左右移动
             #endregion
 
