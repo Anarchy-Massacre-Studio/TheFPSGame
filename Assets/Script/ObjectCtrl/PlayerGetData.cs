@@ -15,7 +15,6 @@ public class PlayerGetData : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Debug.Log("233");
         try
         {
             xDocument = XDocument.Load("PlayerData.xml");
@@ -40,5 +39,7 @@ public class PlayerGetData : MonoBehaviour
         xe.Element("Emission").Element("B").SetValue(material.GetColor("_EmissionColor").b.ToString());
 
         xDocument.Save("PlayerData.xml");
+
+        PlayerData.GetColorTable();
     }
 }

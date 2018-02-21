@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 using UnityEngine;
 
 public static class PlayerData
 {
     public static Material PlayerMaterial;
+    public static Color[] ColorTable = null;
 
     static XDocument playerData;
 
@@ -41,7 +43,7 @@ public static class PlayerData
         }
         catch(Exception ex)
         {
-            File.WriteAllText("Error_Log", ex.Message);
+            File.WriteAllText("Error_Log.txt", ex.Message);
             Application.Quit();
         }
 
@@ -62,5 +64,42 @@ public static class PlayerData
         PlayerMaterial.SetFloat("_Metallic", metallic);
         PlayerMaterial.SetFloat("_Glossiness", smoothness);
         PlayerMaterial.SetColor("_EmissionColor", new Color(e_r, e_g, e_b));
+    }
+
+    public static Color[] GetColorTable()
+    {
+        if (ColorTable == null)
+        {
+            XDocument xDocument = null;
+            try
+            {
+                xDocument = XDocument.Load("Color.xml");
+            }
+            catch (FileNotFoundException ex)
+            {
+                File.WriteAllText("Color_Error_Log.txt", ex.Message);
+                Application.Quit();
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText("Error_Log.txt", ex.Message);
+                Application.Quit();
+            }
+
+            Debug.Log(xDocument);
+
+            var query = from q in xDocument.Descendants("Data")
+                        select q.Value;
+
+            foreach (var v in query)
+            {
+                Debug.Log(v);
+            }
+            return null;
+        }
+        else
+        {
+            return ColorTable;
+        }
     }
 }
