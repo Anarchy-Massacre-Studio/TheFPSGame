@@ -18,6 +18,10 @@ public partial class MenuButtonEvents : MonoBehaviour
     public RectTransform EquipMenu_Color;
     public RectTransform EquipMenu_Weapon;
     public RectTransform EquipMenu_Equip;
+    public RectTransform ColorTable;
+    public RectTransform ValueSlider;
+
+    public Image ColorTableMask;
 
     public GameObject Loading;
 
@@ -25,7 +29,7 @@ public partial class MenuButtonEvents : MonoBehaviour
     private enum EquipMenuButtons : int { color, weapon, equip }
     private enum EquipColorMenuButtons : int { color, metallic, smooth, shine }
 
-    public void MainMenuEvents(int i)
+    public void MainMenuEvents(int i) 
     {
         switch(i)
         {
@@ -202,6 +206,7 @@ public partial class MenuButtonEvents : MonoBehaviour
 
     }
 
+
     #region api
 
     #region DoTweeningBox
@@ -307,5 +312,21 @@ public partial class MenuButtonEvents : MonoBehaviour
     {
         Camera.transform.DOMoveZ(-20, 1f).OnComplete(() => { doAnchorPosXShowAndHide(MainMenu, null); });
         Mask.DOColor(new Color(0, 0, 0, 0), 1f).OnComplete(() => { Mask.gameObject.SetActive(false); });
+
+        GameObject color_table_button = Resources.Load<GameObject>("ColorTableButton");
+
+        foreach(var c in PlayerData.GetColorTable())
+        {
+            var c_t_b = Instantiate(color_table_button);
+            c_t_b.transform.SetParent(ColorTable.transform.GetChild(0));
+
+            var c_t_b_r = c_t_b.GetComponent<RectTransform>();
+
+            c_t_b_r.anchoredPosition3D = new Vector3(c_t_b_r.anchoredPosition3D.x, c_t_b_r.anchoredPosition3D.y, 0);
+            c_t_b_r.localScale = Vector3.one;
+
+            c_t_b.GetComponent<Image>().color = c;
+            c_t_b.GetComponent<ColorTableButton>().Target = ColorTable.transform.GetChild(1).GetComponent<RectTransform>();
+        }
     }
 }

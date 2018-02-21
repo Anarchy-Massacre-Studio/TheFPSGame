@@ -6,10 +6,7 @@ public class PlayerGetData : MonoBehaviour
 {
     Material material;
 
-	void Awake ()
-    {
-        GetComponent<SkinnedMeshRenderer>().material = PlayerData.PlayerMaterial;
-	}
+    void Awake() => GetComponent<SkinnedMeshRenderer>().material = PlayerData.PlayerMaterial;
 
     XDocument xDocument;
 
