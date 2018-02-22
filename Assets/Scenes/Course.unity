@@ -521,6 +521,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 66ff97b0c8d6fdb428b2e8c69318ea41, type: 3}
   m_IsPrefabParent: 0
+--- !u!4 &683323319 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: 66ff97b0c8d6fdb428b2e8c69318ea41, type: 3}
+  m_PrefabInternal: {fileID: 683323318}
 --- !u!4 &683323320 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400060, guid: 66ff97b0c8d6fdb428b2e8c69318ea41, type: 3}
@@ -580,6 +584,8 @@ MonoBehaviour:
   bodyHandIK_state: 1
   leftHandFrom: {fileID: 1008590284}
   Gun_1Obj: {fileID: 336298515}
+  Move_state: 1
+  run_Input_speed: 0
 --- !u!136 &683323324
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1768,17 +1774,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1834325251}
-  m_LocalRotation: {x: -0, y: 3.067204e-14, z: -1.5694412e-13, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalRotation: {x: 1.3e-44, y: 3.067204e-14, z: -1.5694412e-13, w: 1}
+  m_LocalPosition: {x: 0, y: -1.0153435, z: 0.7125183}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1866149691}
+  m_Father: {fileID: 683323319}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1866149691 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 400032, guid: 66ff97b0c8d6fdb428b2e8c69318ea41, type: 3}
-  m_PrefabInternal: {fileID: 683323318}
 --- !u!1 &1929717194
 GameObject:
   m_ObjectHideFlags: 0

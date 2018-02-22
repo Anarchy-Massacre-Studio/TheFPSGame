@@ -25,31 +25,31 @@ public class HumanCtrl : ObjectCtrl
 
     float rotationY = 0F;
 
-    public bool squat_state = false;    //角色蹲站状态，默认站
-    public float move_speed=15;            //角色移动速度
-    public bool climb_1_check = false;        //检测前方是否是小墙
-    public bool gorundFrom_check = false;         //在地面？
-    public Transform walls_start_Check;           //墙壁检测器官起点
-    public Transform walls_1end_Check;           //墙壁检测器官终点1
-    public Transform ground_start_Check;           //地面检测器官起点
-    public Transform ground_end_Check;           //地面检测器官终点
+    public bool squat_state = false;        //角色蹲站状态，默认站
+    public float move_speed=15;             //角色移动速度
+    public bool climb_1_check = false;      //检测前方是否是小墙
+    public bool gorundFrom_check = false;   //在地面？
+    public Transform walls_start_Check;     //墙壁检测器官起点
+    public Transform walls_1end_Check;      //墙壁检测器官终点1
+    public Transform ground_start_Check;    //地面检测器官起点
+    public Transform ground_end_Check;      //地面检测器官终点
     public CapsuleCollider cc;              //角色碰撞器
     public ConstantForce cf;                //角色力
     public Transform bodyLookObj;           //上半身看向的目标 
     public Transform eyesHome;              //眼睛
-    public Transform Carama_tf;              //相机
-    public Transform gunLeftHandHome;          //枪上左手位置
-    public Transform gunRightHandHome;         //枪上右手位置
+    public Transform Carama_tf;             //相机
+    public Transform gunLeftHandHome;       //枪上左手位置
+    public Transform gunRightHandHome;      //枪上右手位置
     public Transform Gun_1;                 //来复枪位置
     public Transform gun_rifleHome;         //来复枪家的位置
-    public bool Gun_1_have=true;                 //当前有枪?
-    public bool leftHandIK_state = true;     //左手ik开启?
-    public bool rightHandIK_state = true;     //左手ik开启?
-    public bool bodyHandIK_state = true;     //肚子ik开启?
-    public GameObject leftHandFrom;            //左手
-    public GameObject Gun_1Obj;            //来复枪
-    public bool Move_state = true;     //角色移动方法开启?
-    public float run_Input_speed;        //跑步动画速度参数
+    public bool Gun_1_have=true;            //当前有枪?
+    public bool leftHandIK_state = true;    //左手ik开启?
+    public bool rightHandIK_state = true;   //左手ik开启?
+    public bool bodyHandIK_state = true;    //肚子ik开启?
+    public GameObject leftHandFrom;         //左手
+    public GameObject Gun_1Obj;             //来复枪
+    public bool Move_state = true;          //角色移动方法开启?
+    public float run_Input_speed;           //跑步动画速度参数
 
 
 
@@ -85,7 +85,7 @@ public class HumanCtrl : ObjectCtrl
             #region humanAnimation
             //移动动画 w，a，s，d,shift
             Animator.SetFloat("MoveX", move_x_Input);
-            //输入的shift给shift速度
+            //按键输入的shift给shift参数速度
             if (move_y_Input!=0&&!squat_state)
             {
                 run_Input_speed = run_Input;
@@ -108,6 +108,7 @@ public class HumanCtrl : ObjectCtrl
                 Animator.applyRootMotion = true;                            //开启动画控制
                 Move_state = false;                                         //关闭人物移动方法
             }
+            //没跑时
             else
             {
                 //开启上半身部分ik 
