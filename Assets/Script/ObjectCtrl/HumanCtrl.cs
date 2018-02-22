@@ -91,6 +91,8 @@ public class HumanCtrl : ObjectCtrl
             }
             //如果角色在空中就施加重力
             cf.force = ((!gorundFrom_check) ? new Vector3(0, cf.force.y - 50, 0) : cf.force = new Vector3(0, 0, 0));//返回重力或初始化重力
+            //角色落地判断
+            Animator.SetBool("GroundFrom", gorundFrom_check);
             #endregion
 
             //人物移动
@@ -131,25 +133,37 @@ public class HumanCtrl : ObjectCtrl
     /// 跳跃事件开始
     /// </summary>
     /// <param name="start"></param>
-    public void event_jump1_start(string collide_close)
+    public void event_jump1_start(string start)
     {
         IsCtrl = false;         //关闭控制
         Animator.applyRootMotion = true;        //开启动画控制
-        if (collide_close=="ok")
+        //jumps们的事件
+        if (start == "jumps_start")
         {
             cc.enabled = false;
+        }
+        //jumpdown的事件
+        if (start == "jumpdown_start")
+        {
+            
         }
     }
     /// <summary>
     /// 跳跃事件结束
     /// </summary>
     /// <param name="end"></param>
-    public void event_jump1_end(string collide_close)
+    public void event_jump1_end(string end)
     {
         IsCtrl = true;         //开启控制
-        if (collide_close == "no")
+        //jumps们的事件
+        if (end == "jumps_end")
         {
             cc.enabled = true;
+        }
+        //jumpdown的事件
+        if (end == "jumpdown_end")
+        {
+            
         }
         Animator.applyRootMotion = false;      //关闭动画控制
         Animator.SetFloat("JumpY", 0);      //重新赋值没有跳跃类型
