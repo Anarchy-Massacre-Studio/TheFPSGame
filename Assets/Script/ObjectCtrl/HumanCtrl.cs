@@ -49,7 +49,9 @@ public class HumanCtrl : ObjectCtrl
     public GameObject leftHandFrom;            //左手
     public GameObject Gun_1Obj;            //来复枪
     public bool Move_state = true;     //角色移动方法开启?
-    
+    public float run_Input_speed;        //跑步动画速度参数
+
+
 
     protected virtual void Start()
     {
@@ -83,9 +85,18 @@ public class HumanCtrl : ObjectCtrl
             #region humanAnimation
             //移动动画 w，a，s，d,shift
             Animator.SetFloat("MoveX", move_x_Input);
-            Animator.SetFloat("MoveY", move_y_Input+ run_Input);
+            //输入的shift给shift速度
+            if (move_y_Input!=0&&!squat_state)
+            {
+                run_Input_speed = run_Input;
+            }
+            else
+            {
+                run_Input_speed = 0;
+            }
+            Animator.SetFloat("MoveY", move_y_Input+ run_Input_speed);
             //跑步时
-            if (run_Input!=0)
+            if (run_Input_speed != 0&& move_y_Input!=0)
             {
 
                 //关闭上半身部分ik 
@@ -122,11 +133,11 @@ public class HumanCtrl : ObjectCtrl
             {
                 Animator.SetFloat("JumpY", 3);//执行翻墙
             }
-            else if (jump_Input && run_Input != 0 && !climb_1_check && gorundFrom_check)
+            else if (jump_Input && run_Input_speed != 0 && !climb_1_check && gorundFrom_check)
             {
                 Animator.SetFloat("JumpY", 2);//执行向前大跳
             }
-            else if (jump_Input && run_Input == 0 && !climb_1_check && gorundFrom_check)
+            else if (jump_Input && run_Input_speed == 0 && !climb_1_check && gorundFrom_check)
             {
                 Animator.SetFloat("JumpY", 1);//小跳
             }
@@ -148,10 +159,10 @@ public class HumanCtrl : ObjectCtrl
             if (Move_state)
             {
                 //移动w，a，s，d,shift
-                float squat_y_move_speed = ((squat_state) ? move_y_Input * 0.5f : move_y_Input);//返回蹲或起的前后移动速度
-                float squat_x_move_speed = ((squat_state) ? move_x_Input * 0.5f : move_x_Input);//返回蹲或起的左右移动速度
-                float run_speed = ((run_Input == 1) ? 20 : 0);
-                transform.Translate(new Vector3(0, 0, squat_y_move_speed + run_Input) * Time.deltaTime * (move_speed + run_speed));     //前后移动
+                float squat_y_move_speed = ((squat_state) ? move_y_Input * 0.7f : move_y_Input);//返回蹲或起的前后移动速度
+                float squat_x_move_speed = ((squat_state) ? move_x_Input * 0.7f : move_x_Input);//返回蹲或起的左右移动速度
+                //float run_speed = ((run_Input_speed == 1) ? 20 : 0);
+                transform.Translate(new Vector3(0, 0, squat_y_move_speed ) * Time.deltaTime * move_speed );     //前后移动
                 transform.Translate(new Vector3(squat_x_move_speed, 0, 0) * Time.deltaTime * move_speed);                //左右移动
             }
             #endregion
