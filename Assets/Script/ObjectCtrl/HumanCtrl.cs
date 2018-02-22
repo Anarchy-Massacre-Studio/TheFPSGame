@@ -77,15 +77,15 @@ public class HumanCtrl : ObjectCtrl
                 Animator.SetFloat("SquatY", move_y_Input);
             }
             //跳跃动画判断
-            if (jump_Input && climb_1_check)
+            if (jump_Input && climb_1_check&& gorundFrom_check)
             {
                 Animator.SetFloat("JumpY", 3);//执行翻墙
             }
-            else if (jump_Input && run_Input != 0 && !climb_1_check)
+            else if (jump_Input && run_Input != 0 && !climb_1_check && gorundFrom_check)
             {
                 Animator.SetFloat("JumpY", 2);//执行向前大跳
             }
-            else if (jump_Input && run_Input == 0 && !climb_1_check)
+            else if (jump_Input && run_Input == 0 && !climb_1_check && gorundFrom_check)
             {
                 Animator.SetFloat("JumpY", 1);//小跳
             }
