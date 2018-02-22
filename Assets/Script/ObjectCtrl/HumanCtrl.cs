@@ -29,9 +29,12 @@ public class HumanCtrl : ObjectCtrl
     public float move_speed=15;            //角色移动速度
     public bool climb_1_check = false;        //检测前方是否是小墙
     public bool gorundFrom_check = false;         //在地面？
-    public Transform wall_Check;           //墙壁检测器官
-    public Transform ground_Check;           //地面检测器官
+    public Transform walls_start_Check;           //墙壁检测器官起点
+    public Transform walls_1end_Check;           //墙壁检测器官终点1
+    public Transform ground_start_Check;           //地面检测器官起点
+    public Transform ground_end_Check;           //地面检测器官终点
     public CapsuleCollider cc;              //角色碰撞器
+    public ConstantForce cf;                //角色力
 
     protected virtual void Start()
     {
@@ -58,9 +61,9 @@ public class HumanCtrl : ObjectCtrl
             //Debug.Log(CharacterController.isGrounded);
 
             //墙壁检测
-            climb_1_check = ((Physics.Linecast(transform.position, wall_Check.position, 1 << LayerMask.NameToLayer("Wall_1"))) ? climb_1_check =true : climb_1_check = false);
+            climb_1_check = ((Physics.Linecast(walls_start_Check.position, walls_1end_Check.position, 1 << LayerMask.NameToLayer("Wall_1"))) ? climb_1_check =true : climb_1_check = false);
             //地面检测
-            gorundFrom_check = ((Physics.Linecast(transform.position, ground_Check.position, 1 << LayerMask.NameToLayer("Ground"))) ? gorundFrom_check = true : gorundFrom_check = false);
+            gorundFrom_check = ((Physics.Linecast(ground_start_Check.position, ground_end_Check.position, 1 << LayerMask.NameToLayer("Ground"))) ? gorundFrom_check = true : gorundFrom_check = false);
             //人物动画控制
             #region humanAnimation
             //移动动画 w，a，s，d,shift
@@ -73,24 +76,21 @@ public class HumanCtrl : ObjectCtrl
                 Animator.SetFloat("SquatX", move_x_Input);
                 Animator.SetFloat("SquatY", move_y_Input);
             }
-            //跳跃按键执行
-            if (jump_Input)
-            {
-                Animator.SetBool("Jump", true);     //跳跃
-            }
             //跳跃动画判断
-            if (jump_Input && climb_1_check == true)
+            if (jump_Input && climb_1_check)
             {
                 Animator.SetFloat("JumpY", 3);//执行翻墙
             }
-            else if (jump_Input && run_Input != 0 && climb_1_check == false)
+            else if (jump_Input && run_Input != 0 && !climb_1_check)
             {
                 Animator.SetFloat("JumpY", 2);//执行向前大跳
             }
-            else if (jump_Input && run_Input == 0 && climb_1_check == false)
+            else if (jump_Input && run_Input == 0 && !climb_1_check)
             {
                 Animator.SetFloat("JumpY", 1);//小跳
             }
+            //如果角色在空中就施加重力
+            cf.force = ((!gorundFrom_check) ? new Vector3(0, cf.force.y - 50, 0) : cf.force = new Vector3(0, 0, 0));//返回重力或初始化重力
             #endregion
 
             //人物移动
@@ -133,6 +133,7 @@ public class HumanCtrl : ObjectCtrl
     /// <param name="start"></param>
     public void event_jump1_start(string collide_close)
     {
+        IsCtrl = false;         //关闭控制
         Animator.applyRootMotion = true;        //开启动画控制
         if (collide_close=="ok")
         {
@@ -145,13 +146,13 @@ public class HumanCtrl : ObjectCtrl
     /// <param name="end"></param>
     public void event_jump1_end(string collide_close)
     {
+        IsCtrl = true;         //开启控制
         if (collide_close == "no")
         {
             cc.enabled = true;
         }
         Animator.applyRootMotion = false;      //关闭动画控制
         Animator.SetFloat("JumpY", 0);      //重新赋值没有跳跃类型
-        Animator.SetBool("Jump", false);     //重新赋值没有跳跃
     }
 
     //动画ik。
