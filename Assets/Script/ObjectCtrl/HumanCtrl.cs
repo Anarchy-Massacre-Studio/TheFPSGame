@@ -38,8 +38,18 @@ public class HumanCtrl : ObjectCtrl
     public Transform bodyLookObj;           //上半身看向的目标 
     public Transform eyesHome;              //眼睛
     public Transform Carama_tf;              //相机
-    public Transform leftHandHome;          //左手位置
-    public Transform rightHandHome;         //右手位置
+    public Transform gunLeftHandHome;          //枪上左手位置
+    public Transform gunRightHandHome;         //枪上右手位置
+    public Transform Gun_1;                 //来复枪位置
+    public Transform gun_rifleHome;         //来复枪家的位置
+    public bool Gun_1_have=true;                 //当前有枪?
+    public bool leftHandIK_state = true;     //左手ik开启?
+    public bool rightHandIK_state = true;     //左手ik开启?
+    public bool bodyHandIK_state = true;     //肚子ik开启?
+    public GameObject leftHandFrom;            //左手
+    public GameObject Gun_1Obj;            //来复枪
+    public bool Move_state = true;     //角色移动方法开启?
+    
 
     protected virtual void Start()
     {
@@ -74,6 +84,32 @@ public class HumanCtrl : ObjectCtrl
             //移动动画 w，a，s，d,shift
             Animator.SetFloat("MoveX", move_x_Input);
             Animator.SetFloat("MoveY", move_y_Input+ run_Input);
+            //跑步时
+            if (run_Input!=0)
+            {
+
+                //关闭上半身部分ik 
+                leftHandIK_state = false;
+                //rightHandIK_state = false;
+                bodyHandIK_state = false;
+ 
+                Gun_1Obj.transform.parent = leftHandFrom.transform;         //让枪成为手Home的子物体
+                Animator.applyRootMotion = true;                            //开启动画控制
+                Move_state = false;                                         //关闭人物移动方法
+            }
+            else
+            {
+                //开启上半身部分ik 
+                leftHandIK_state = true;
+               // rightHandIK_state = true;
+                bodyHandIK_state = true;
+                //让枪成为枪Home的子物体
+                Gun_1Obj.transform.parent = gun_rifleHome.transform;
+                Gun_1Obj.transform.position = gun_rifleHome.transform.position;
+                Gun_1Obj.transform.rotation = gun_rifleHome.transform.rotation;
+                Animator.applyRootMotion = false;      //关闭动画控制
+                Move_state = true;                                         //开启人物移动方法
+            }
             //蹲起+移动动画  w，a，s，d,c
             Animator.SetBool("Squat", squat_state);
             if (squat_state)
@@ -100,16 +136,24 @@ public class HumanCtrl : ObjectCtrl
             Animator.SetBool("GroundFrom", gorundFrom_check);
             //摄像机位置等于眼睛位置
             Carama_tf.position = eyesHome.position;
+            //当前有枪？
+            if (Gun_1_have)
+            {
+
+            }
             #endregion
 
             //人物移动
             #region humanMove
-            //移动w，a，s，d,shift
-            float squat_y_move_speed = ((squat_state) ? move_y_Input * 0.5f : move_y_Input);//返回蹲或起的前后移动速度
-            float squat_x_move_speed = ((squat_state) ? move_x_Input * 0.5f : move_x_Input);//返回蹲或起的左右移动速度
-            float run_speed = ((run_Input == 1) ? 20 : 0);
-            transform.Translate(new Vector3(0, 0, squat_y_move_speed + run_Input) * Time.deltaTime * (move_speed+ run_speed));     //前后移动
-            transform.Translate(new Vector3(squat_x_move_speed, 0, 0) * Time.deltaTime * move_speed);                //左右移动
+            if (Move_state)
+            {
+                //移动w，a，s，d,shift
+                float squat_y_move_speed = ((squat_state) ? move_y_Input * 0.5f : move_y_Input);//返回蹲或起的前后移动速度
+                float squat_x_move_speed = ((squat_state) ? move_x_Input * 0.5f : move_x_Input);//返回蹲或起的左右移动速度
+                float run_speed = ((run_Input == 1) ? 20 : 0);
+                transform.Translate(new Vector3(0, 0, squat_y_move_speed + run_Input) * Time.deltaTime * (move_speed + run_speed));     //前后移动
+                transform.Translate(new Vector3(squat_x_move_speed, 0, 0) * Time.deltaTime * move_speed);                //左右移动
+            }
             #endregion
 
             #region camera
@@ -183,34 +227,40 @@ public class HumanCtrl : ObjectCtrl
         {
             if(isActive)
             {
+
                 //设置权重
                 Animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
                 Animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);
                 Animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
                 Animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1f);
                 //左手ik
-                if (leftHandHome != null)
+                if (leftHandIK_state)
                 {
-                    Animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandHome.position);
-                    Animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandHome.rotation);
+                    Animator.SetIKPosition(AvatarIKGoal.LeftHand, gunLeftHandHome.position);
+                    Animator.SetIKRotation(AvatarIKGoal.LeftHand, gunLeftHandHome.rotation);
                 }
                 //右手ik
-                if (rightHandHome != null)
+                if (rightHandIK_state)
                 {
-                    Animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandHome.position);
-                    Animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandHome.rotation);
+                    Animator.SetIKPosition(AvatarIKGoal.RightHand, gunRightHandHome.position);
+                    Animator.SetIKRotation(AvatarIKGoal.RightHand, gunRightHandHome.rotation);
                 }
                 //上半身ik
-                Animator.SetLookAtWeight(1, 1, 0, 0);                  //上半身权重
-                Animator.SetLookAtPosition(bodyLookObj.position);       //看向的目标
+                if (bodyHandIK_state)
+                {
+                    Animator.SetLookAtWeight(1, 1, 0, 0);                  //肚子权重
+                    Animator.SetLookAtPosition(bodyLookObj.position);       //看向的目标
+                }
+
             }
             else
             {
-                //还原权重
+                //重置骨骼坐标
                 Animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
                 Animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
                 Animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0);
                 Animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 0);
+                Animator.SetLookAtWeight(0, 0, 0, 0);                  //上半身权重
             }
         }
     }
