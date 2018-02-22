@@ -3,15 +3,15 @@
   <Color>
     <MainColor>
       <R>1</R>
-      <G>1</G>
-      <B>1</B>
+      <G>0</G>
+      <B>0</B>
     </MainColor>
     <Metallic>0.18</Metallic>
     <Smoothness>0.36</Smoothness>
     <Emission>
       <R>0</R>
-      <G>0.2137929</G>
-      <B>1</B>
+      <G>0</G>
+      <B>0</B>
     </Emission>
   </Color>
 </PlayerData>
