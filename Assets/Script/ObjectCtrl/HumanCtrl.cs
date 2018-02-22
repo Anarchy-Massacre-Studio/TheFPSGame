@@ -35,6 +35,11 @@ public class HumanCtrl : ObjectCtrl
     public Transform ground_end_Check;           //地面检测器官终点
     public CapsuleCollider cc;              //角色碰撞器
     public ConstantForce cf;                //角色力
+    public Transform bodyLookObj;           //上半身看向的目标 
+    public Transform eyesHome;              //眼睛
+    public Transform Carama_tf;              //相机
+    public Transform leftHandHome;          //左手位置
+    public Transform rightHandHome;         //右手位置
 
     protected virtual void Start()
     {
@@ -93,6 +98,8 @@ public class HumanCtrl : ObjectCtrl
             cf.force = ((!gorundFrom_check) ? new Vector3(0, cf.force.y - 50, 0) : cf.force = new Vector3(0, 0, 0));//返回重力或初始化重力
             //角色落地判断
             Animator.SetBool("GroundFrom", gorundFrom_check);
+            //摄像机位置等于眼睛位置
+            Carama_tf.position = eyesHome.position;
             #endregion
 
             //人物移动
@@ -176,18 +183,30 @@ public class HumanCtrl : ObjectCtrl
         {
             if(isActive)
             {
+                //设置权重
                 Animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
                 Animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);
                 Animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
                 Animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1f);
-                if(RightHandRefer != null)
+                //左手ik
+                if (leftHandHome != null)
                 {
-                    Animator.SetIKPosition(AvatarIKGoal.RightHand, RightHandRefer.position);
-                    Animator.SetIKRotation(AvatarIKGoal.RightHand, RightHandRefer.rotation);
+                    Animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandHome.position);
+                    Animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandHome.rotation);
                 }
+                //右手ik
+                if (rightHandHome != null)
+                {
+                    Animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandHome.position);
+                    Animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandHome.rotation);
+                }
+                //上半身ik
+                Animator.SetLookAtWeight(1, 1, 0, 0);                  //上半身权重
+                Animator.SetLookAtPosition(bodyLookObj.position);       //看向的目标
             }
             else
             {
+                //还原权重
                 Animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
                 Animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
                 Animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0);
