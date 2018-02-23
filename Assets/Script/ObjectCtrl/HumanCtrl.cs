@@ -55,6 +55,9 @@ public class HumanCtrl : ObjectCtrl
     public float move_y_Input_speed;           //前后移动速度参数
     public float move_x_Input_speed;           //左右移动速度参数
     public float MouseX_speed;              //水平鼠标偏移速度
+    public Transform gunFrom_start;           //枪起点
+    public Transform gunFrom_end;           //枪结束点
+
 
     protected virtual void Start()
     {
@@ -77,7 +80,6 @@ public class HumanCtrl : ObjectCtrl
             squat_state = ((Input.GetKeyDown(KeyCode.C)) ? squat_state = !squat_state : squat_state);//返回squat_state_Input
             bool jump_Input = Input.GetKeyDown(KeyCode.Space);
             #endregion
-
             //Debug.Log(CharacterController.isGrounded);
             //状态检测
             #region humanCheck
@@ -88,6 +90,8 @@ public class HumanCtrl : ObjectCtrl
             #endregion
             //人物动画控制
             #region humanAnimation
+            //平滑旋转
+
             //旋转镜头直接赋值
             if (Input.GetAxis("Mouse X")>=0.2f&& Input.GetAxis("Mouse X") >0f)
             {
@@ -126,8 +130,6 @@ public class HumanCtrl : ObjectCtrl
                 move_x_Input_speed = move_x_Input;
                 move_y_Input_speed = move_y_Input;
             }
-            //摄像机旋转时动画
-            //Animator.SetFloat("MoveX", Input.GetAxis("Mouse X")* 2f);
             //跑步时枪的动作
             if (Animator.GetFloat("MoveY")>1.1f)//run_Input_speed > 0&& move_y_Input!=0
             {
@@ -138,8 +140,8 @@ public class HumanCtrl : ObjectCtrl
                 bodyHandIK_state = false;
  
                 Gun_1Obj.transform.parent = rightHandFrom.transform;         //让枪成为手Home的子物体
-                Animator.applyRootMotion = true;                            //开启动画控制
-                Move_state = false;                                         //关闭人物移动方法
+                //Animator.applyRootMotion = true;                            //开启动画控制
+                //Move_state = false;                                         //关闭人物移动方法
             }
             //没跑时枪的动作
             else if (Animator.GetFloat("MoveY") <=1.1f&&!squat_state&& squat_up_end)
@@ -152,8 +154,8 @@ public class HumanCtrl : ObjectCtrl
                 Gun_1Obj.transform.parent = gun_rifleHome.transform;
                 Gun_1Obj.transform.position = gun_rifleHome.transform.position;
                 Gun_1Obj.transform.rotation = gun_rifleHome.transform.rotation;
-                Animator.applyRootMotion = false;      //关闭动画控制
-                Move_state = true;                                         //开启人物移动方法
+                //Animator.applyRootMotion = false;      //关闭动画控制
+                //Move_state = true;                                         //开启人物移动方法
             }
             //蹲起+移动动画  w，a，s，d,c
             Animator.SetBool("Squat", squat_state);
@@ -195,8 +197,8 @@ public class HumanCtrl : ObjectCtrl
                 //移动w，a，s，d,shift
                 float squat_y_move_speed = ((squat_state) ? move_y_Input_speed * 0.7f : move_y_Input_speed);//返回蹲或起的前后移动速度
                 float squat_x_move_speed = ((squat_state) ? move_x_Input_speed * 0.7f : move_x_Input_speed);//返回蹲或起的左右移动速度
-                //float run_speed = ((run_Input_speed == 1) ? 20 : 0);
-                transform.Translate(new Vector3(0, 0, squat_y_move_speed ) * Time.deltaTime * move_speed );     //前后移动
+                float run_speed = ((run_Input_speed == 1) ? 36 : 0);
+                transform.Translate(new Vector3(0, 0, squat_y_move_speed ) * Time.deltaTime * (move_speed+ run_speed));     //前后移动
                 transform.Translate(new Vector3(squat_x_move_speed, 0, 0) * Time.deltaTime * move_speed);                //左右移动
             }
             #endregion
@@ -305,6 +307,9 @@ public class HumanCtrl : ObjectCtrl
                     Animator.SetIKPosition(AvatarIKGoal.RightHand, gunRightHandHome.position);
                     Animator.SetIKRotation(AvatarIKGoal.RightHand, gunRightHandHome.rotation);
                 }
+                //头部ik
+                Animator.SetLookAtWeight(1);
+                Animator.SetLookAtPosition(bodyLookObj.position);
                 //上半身ik
                 if (bodyHandIK_state)
                 {
