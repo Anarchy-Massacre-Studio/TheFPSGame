@@ -19,10 +19,14 @@ public partial class MenuButtonEvents : MonoBehaviour
     public RectTransform EquipMenu_Color;
     public RectTransform EquipMenu_Weapon;
     public RectTransform EquipMenu_Equip;
+
+    public RectTransform AboutPanel;
+
     public RectTransform ColorTable;
-    public RectTransform ValueSlider;
+    public RectTransform SliderTable;
 
     public Image ColorTableMask;
+    public Image SliderTableMask;
 
     public GameObject Loading;
 
@@ -31,6 +35,7 @@ public partial class MenuButtonEvents : MonoBehaviour
     private enum MainMenuButtons : int { play, equip, course, setting, about, exit }
     private enum EquipMenuButtons : int { color, weapon, equip }
     private enum EquipColorMenuButtons : int { color, metallic, smooth, shine }
+    private enum BackButtons : int { play, setting, about }
 
     public void MainMenuEvents(int i) 
     {
@@ -97,6 +102,7 @@ public partial class MenuButtonEvents : MonoBehaviour
 
         RectTransform[] color_buttons = new RectTransform[4] { color_color, color_metallic, color_smooth, color_shine };
 
+        #region show_or_hide_color_table
         Action<bool> showColorTable = isColor =>
         {
             var target = ColorTable.transform.GetChild(1).GetComponent<RectTransform>();
@@ -130,13 +136,37 @@ public partial class MenuButtonEvents : MonoBehaviour
                 }
             }
         };
-
         Action hideColorTable = () =>
         {
             ColorTableMask.gameObject.SetActive(true);
             ColorTable.DOAnchorPosY(300f, 0.5f);
             ColorTableMask.DOColor(new Color(0, 0, 0, 1), 0.2f);
         };
+        #endregion
+
+        #region show_or_hide_slider_table
+        Action<bool> showSliderTable = isMetallic =>
+        {
+            SliderTableMask.DOColor(new Color(0, 0, 0, 0), 0.3f).OnComplete(() => SliderTableMask.gameObject.SetActive(false));
+            if(isMetallic)
+            {
+                SliderTable.DOAnchorPosY(-150, 0.3f);
+                SliderTable.transform.GetChild(0).GetComponent<Slider>().value = PlayerData.PlayerMaterial.GetFloat("_Metallic");
+            }
+            else
+            {
+                SliderTable.DOAnchorPosY(-250, 0.3f);
+                SliderTable.transform.GetChild(0).GetComponent<Slider>().value = PlayerData.PlayerMaterial.GetFloat("_Glossiness");
+            }
+        };
+
+        Action hideSliderTable = () =>
+        {
+            SliderTableMask.gameObject.SetActive(true);
+            SliderTableMask.DOColor(new Color(0, 0, 0, 1), 0.2f);
+            SliderTable.DOAnchorPosY(200, 0.3f);
+        };
+        #endregion
 
         Action<RectTransform> enableButtons = rectTransform =>
         {
@@ -167,26 +197,33 @@ public partial class MenuButtonEvents : MonoBehaviour
                 ColorTableButton.isColor = true;
                 enableButtons(color_color);
                 showColorTable(true);
+                hideSliderTable();
                 break;
 
             case (int)EquipColorMenuButtons.metallic:
+                SliderTableEvent.isMetallic = true;
                 enableButtons(color_metallic);
                 hideColorTable();
+                showSliderTable(true);
                 break;
 
             case (int)EquipColorMenuButtons.smooth:
+                SliderTableEvent.isMetallic = false;
                 enableButtons(color_smooth);
                 hideColorTable();
+                showSliderTable(false);
                 break;
 
             case (int)EquipColorMenuButtons.shine:
                 ColorTableButton.isColor = false;
                 enableButtons(color_shine);
                 showColorTable(false);
+                hideSliderTable();
                 break;
 
             case 4: //back
                 hideColorTable();
+                hideSliderTable();
                 foreach (var c in color_buttons)
                 {
                     c.DOLocalRotate(new Vector3(0, 20f, 0), 0.3f);
@@ -239,7 +276,21 @@ public partial class MenuButtonEvents : MonoBehaviour
 
     public void Back(int i)
     {
+        switch(i)
+        {
+            case (int)BackButtons.play:
 
+                break;
+
+            case (int)BackButtons.setting:
+
+                break;
+
+            case (int)BackButtons.about:
+                MenuHumanAnimation.About_Back();
+                doAnchorPosXShowAndHide(MainMenu, AboutPanel);
+                break;
+        }
     }
 
 
@@ -295,8 +346,7 @@ public partial class MenuButtonEvents : MonoBehaviour
     {
         parent_name = "EquipMenu";
 
-        MainMenu.DOAnchorPosX(500, 0.5f);
-        MainMenu.DORotate(new Vector3(0, 180, 0), 0.3f);
+        doAnchorPosXShowAndHide(true, MainMenu, null);
 
         Camera.transform.DOMove(new Vector3(0, -2.5f, -9.5f), 1f);
         Camera.transform.DORotate(new Vector3(0, -8, 0), 1f).OnComplete(() =>
@@ -323,7 +373,9 @@ public partial class MenuButtonEvents : MonoBehaviour
 
     void About()
     {
+        MenuHumanAnimation.About();
 
+        doAnchorPosXShowAndHide(AboutPanel, MainMenu);
     }
 
     void Exit()
@@ -347,7 +399,7 @@ public partial class MenuButtonEvents : MonoBehaviour
     private void Start()
     {
         Camera.transform.DOMoveZ(-20, 1f).OnComplete(() => { doAnchorPosXShowAndHide(MainMenu, null); });
-        Mask.DOColor(new Color(0, 0, 0, 0), 1f).OnComplete(() => { Mask.gameObject.SetActive(false); });
+        Mask.DOColor(new Color(0, 0, 0, 0), 1f).OnComplete(() => Mask.gameObject.SetActive(false));
 
         GameObject color_table_button = Resources.Load<GameObject>("ColorTableButton");
 

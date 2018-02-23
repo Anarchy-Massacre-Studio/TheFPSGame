@@ -10,7 +10,6 @@ public class MenuHumanAnimation : MonoBehaviour
 
     #region api
 
-
     #region The Button named Equip
     public void Equip() => Animator.SetBool("isStand_Equip", true);
     public void Equip_Back() => Animator.SetBool("isStand_Equip", false);
@@ -25,6 +24,9 @@ public class MenuHumanAnimation : MonoBehaviour
     #region The Button named Course
     public void Course() => Animator.SetBool("isReady", true);
     #endregion
+
+    public void About() => Animator.SetBool("isStand_About", true);
+    public void About_Back() => Animator.SetBool("isStand_About", false);
 
     #endregion
 }
