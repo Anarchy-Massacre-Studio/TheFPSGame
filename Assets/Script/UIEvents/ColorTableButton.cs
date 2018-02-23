@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class ColorTableButton : MonoBehaviour
 {
+    public static bool isColor;
+
     public RectTransform Target;
 	// Use this for initialization
 	void Start ()
@@ -12,7 +14,8 @@ public class ColorTableButton : MonoBehaviour
 
     void OnClick()
     {
-        Target.anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
-        PlayerData.PlayerMaterial.color = GetComponent<Image>().color;
+        Target.anchoredPosition = GetComponent<RectTransform>().anchoredPosition + new Vector2(4.5f,-9.5f);
+        if (isColor) PlayerData.PlayerMaterial.color = GetComponent<Image>().color;
+        else PlayerData.PlayerMaterial.SetColor("_EmissionColor", GetComponent<Image>().color);
     }
 }

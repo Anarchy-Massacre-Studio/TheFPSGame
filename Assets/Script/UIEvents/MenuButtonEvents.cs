@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -24,6 +25,8 @@ public partial class MenuButtonEvents : MonoBehaviour
     public Image ColorTableMask;
 
     public GameObject Loading;
+
+    private string parent_name = null;
 
     private enum MainMenuButtons : int { play, equip, course, setting, about, exit }
     private enum EquipMenuButtons : int { color, weapon, equip }
@@ -94,75 +97,105 @@ public partial class MenuButtonEvents : MonoBehaviour
 
         RectTransform[] color_buttons = new RectTransform[4] { color_color, color_metallic, color_smooth, color_shine };
 
+        Action<bool> showColorTable = isColor =>
+        {
+            var target = ColorTable.transform.GetChild(1).GetComponent<RectTransform>();
+
+            ColorTable.DOAnchorPosY(-100f, 0.3f);
+            ColorTable.DORotate(new Vector3(0, 5, 0), 0.2f).OnComplete(() =>
+            {
+                ColorTableMask.DOColor(new Color(0, 0, 0, 0), 0.4f).OnComplete(() => ColorTableMask.gameObject.SetActive(false));
+            });
+            
+            if(isColor)
+            {
+                foreach(Transform child in ColorTable.transform.GetChild(0))
+                {
+                    if(child.GetComponent<Image>().color == PlayerData.PlayerMaterial.color)
+                    {
+                        target.anchoredPosition = child.GetComponent<RectTransform>().anchoredPosition + new Vector2(4.5f, -9.5f);
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                foreach (Transform child in ColorTable.transform.GetChild(0))
+                {
+                    if (child.GetComponent<Image>().color == PlayerData.PlayerMaterial.GetColor("_EmissionColor")) 
+                    {
+                        target.anchoredPosition = child.GetComponent<RectTransform>().anchoredPosition + new Vector2(4.5f, -9.5f);
+                        return;
+                    }
+                }
+            }
+        };
+
+        Action hideColorTable = () =>
+        {
+            ColorTableMask.gameObject.SetActive(true);
+            ColorTable.DOAnchorPosY(300f, 0.5f);
+            ColorTableMask.DOColor(new Color(0, 0, 0, 1), 0.2f);
+        };
+
+        Action<RectTransform> enableButtons = rectTransform =>
+        {
+            Action<RectTransform, bool> enableButton = (rect, isEnable) =>
+            {
+                if (isEnable)
+                {
+                    rect.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
+                    rect.DOAnchorPos3D(new Vector3(rect.anchoredPosition3D.x, rect.anchoredPosition3D.y, -40f), 0.3f);
+                }
+                else
+                {
+                    rect.DOLocalRotate(new Vector3(0, 20f, 0), 0.3f);
+                    rect.DOAnchorPos3D(new Vector3(rect.anchoredPosition3D.x, rect.anchoredPosition3D.y, 0f), 0.3f);
+                }
+            };
+
+            foreach (var c in color_buttons)
+            {
+                if (c == rectTransform) enableButton(c, true);
+                else enableButton(c, false);
+            }
+        };
+
         switch (i)
         {
             case (int)EquipColorMenuButtons.color:
-                foreach(var c in color_buttons)
-                {
-                    if(c == color_color)
-                    {
-                        c.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
-                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, -40f), 0.3f);
-                    }
-                    else
-                    {
-                        c.DOLocalRotate(new Vector3(0, 20f, 0), 0.3f);
-                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, 0f), 0.3f);
-                    }
-                }
+                ColorTableButton.isColor = true;
+                enableButtons(color_color);
+                showColorTable(true);
                 break;
 
             case (int)EquipColorMenuButtons.metallic:
-                foreach (var c in color_buttons)
-                {
-                    if (c == color_metallic)
-                    {
-                        c.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
-                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, -40f), 0.3f);
-                    }
-                    else
-                    {
-                        c.DOLocalRotate(new Vector3(0, 20f, 0), 0.3f);
-                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, 0f), 0.3f);
-                    }
-                }
+                enableButtons(color_metallic);
+                hideColorTable();
                 break;
 
             case (int)EquipColorMenuButtons.smooth:
-                foreach (var c in color_buttons)
-                {
-                    if (c == color_smooth)
-                    {
-                        c.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
-                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, -40f), 0.3f);
-                    }
-                    else
-                    {
-                        c.DOLocalRotate(new Vector3(0, 20f, 0), 0.3f);
-                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, 0f), 0.3f);
-                    }
-                }
+                enableButtons(color_smooth);
+                hideColorTable();
                 break;
 
             case (int)EquipColorMenuButtons.shine:
+                ColorTableButton.isColor = false;
+                enableButtons(color_shine);
+                showColorTable(false);
+                break;
+
+            case 4: //back
+                hideColorTable();
                 foreach (var c in color_buttons)
                 {
-                    if (c == color_shine)
-                    {
-                        c.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
-                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, -40f), 0.3f);
-                    }
-                    else
-                    {
-                        c.DOLocalRotate(new Vector3(0, 20f, 0), 0.3f);
-                        c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, 0f), 0.3f);
-                    }
+                    c.DOLocalRotate(new Vector3(0, 20f, 0), 0.3f);
+                    c.DOAnchorPos3D(new Vector3(c.anchoredPosition3D.x, c.anchoredPosition3D.y, 0f), 0.3f);
                 }
                 break;
         }
     }
 
-    private string parent_name = null;
     public void Back_Equip()
     {
         switch(parent_name)
@@ -181,6 +214,9 @@ public partial class MenuButtonEvents : MonoBehaviour
 
                 doAnchorPosXShowAndHide(EquipMenu, EquipMenu_Color);
                 MenuHumanAnimation.Equip_Color_Back();
+
+                EquipColorMenuEvents(4);
+
                 break;
 
             case "EquipMenu_Weapon":
@@ -274,10 +310,10 @@ public partial class MenuButtonEvents : MonoBehaviour
         MenuHumanAnimation.Course();
 
         MainMenu.DOAnchorPosX(500, 0.5f);
-        MainMenu.DORotate(new Vector3(0, 180, 0), 0.3f).OnComplete(() => { Loading.SetActive(true); });
+        MainMenu.DORotate(new Vector3(0, 180, 0), 0.3f).OnComplete(() => Loading.SetActive(true));
 
         Camera.transform.DOMove(new Vector3(-5f, -6.5f, -7f), 1f);
-        Camera.transform.DORotate(new Vector3(-7, -10, 0), 1f).OnComplete(() => { StartCoroutine(load()); });
+        Camera.transform.DORotate(new Vector3(-7, -10, 0), 1f).OnComplete(() => StartCoroutine(load()));
     }
 
     void Setting()
@@ -323,6 +359,7 @@ public partial class MenuButtonEvents : MonoBehaviour
             var c_t_b_r = c_t_b.GetComponent<RectTransform>();
 
             c_t_b_r.anchoredPosition3D = new Vector3(c_t_b_r.anchoredPosition3D.x, c_t_b_r.anchoredPosition3D.y, 0);
+            c_t_b_r.localEulerAngles = Vector3.zero;
             c_t_b_r.localScale = Vector3.one;
 
             c_t_b.GetComponent<Image>().color = c;
