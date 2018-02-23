@@ -2,12 +2,12 @@
 <PlayerData>
   <Color>
     <MainColor>
-      <R>0.9333333</R>
-      <G>0.9137255</G>
-      <B>0.9137255</B>
+      <R>1</R>
+      <G>1</G>
+      <B>1</B>
     </MainColor>
     <Metallic>0.6437895</Metallic>
-    <Smoothness>0.7102951</Smoothness>
+    <Smoothness>0.9978302</Smoothness>
     <Emission>
       <R>0</R>
       <G>0</G>
