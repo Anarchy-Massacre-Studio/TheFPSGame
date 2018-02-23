@@ -114,6 +114,34 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &13562057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 13562058}
+  m_Layer: 0
+  m_Name: rightHandFrom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &13562058
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 13562057}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 577916347}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &142590880
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +447,10 @@ Transform:
   m_Father: {fileID: 343779799}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &577916347 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400040, guid: 66ff97b0c8d6fdb428b2e8c69318ea41, type: 3}
+  m_PrefabInternal: {fileID: 683323318}
 --- !u!1 &646525101
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,6 +594,7 @@ MonoBehaviour:
   minimumY: -60
   maximumY: 60
   squat_state: 0
+  squat_up_end: 1
   move_speed: 15
   climb_1_check: 0
   gorundFrom_check: 0
@@ -583,16 +616,20 @@ MonoBehaviour:
   rightHandIK_state: 1
   bodyHandIK_state: 1
   leftHandFrom: {fileID: 1008590284}
+  rightHandFrom: {fileID: 13562057}
   Gun_1Obj: {fileID: 336298515}
   Move_state: 1
   run_Input_speed: 0
+  move_y_Input_speed: 0
+  move_x_Input_speed: 0
+  MouseX_speed: 0
 --- !u!136 &683323324
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 683323322}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a302ab750a37a8b45af9178b8e9b1532, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 2.5
@@ -861,7 +898,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 831156125}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1271090761}
@@ -1803,7 +1840,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1929717194}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1271090761}
