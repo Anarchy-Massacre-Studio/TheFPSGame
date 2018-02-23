@@ -89,7 +89,7 @@ MonoBehaviour:
       highPercent: 99
       minLuminance: -5
       maxLuminance: 1.11
-      keyValue: 0
+      keyValue: 0.18
       dynamicKeyValue: 1
       adaptationType: 0
       speedUp: 2
@@ -100,8 +100,8 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.2
-        threshold: 1.1
+        intensity: 0.3
+        threshold: 1
         softKnee: 0.5
         radius: 4
         antiFlicker: 0
@@ -283,8 +283,8 @@ MonoBehaviour:
   chromaticAberration:
     m_Enabled: 0
     m_Settings:
-      spectralTexture: {fileID: 0}
-      intensity: 0.1
+      spectralTexture: {fileID: 2800000, guid: 85b3f0cadf928b34ea35372267fb1d0e, type: 3}
+      intensity: 0
   grain:
     m_Enabled: 0
     m_Settings:
