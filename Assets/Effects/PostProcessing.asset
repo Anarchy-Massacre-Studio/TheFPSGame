@@ -33,7 +33,7 @@ MonoBehaviour:
     m_Settings:
       method: 0
       fxaaSettings:
-        preset: 2
+        preset: 3
       taaSettings:
         jitterSpread: 0.75
         sharpen: 0.3
@@ -106,8 +106,8 @@ MonoBehaviour:
         radius: 4
         antiFlicker: 0
       lensDirt:
-        texture: {fileID: 2800000, guid: 7a051dbda2d7bc447bee412427cd311e, type: 3}
-        intensity: 3
+        texture: {fileID: 2800000, guid: 3884f7a2d04ffe8409ad9200b275896f, type: 3}
+        intensity: 1
   colorGrading:
     m_Enabled: 1
     m_Settings:
@@ -153,8 +153,8 @@ MonoBehaviour:
               outSlope: 1
               tangentMode: 0
             - serializedVersion: 2
-              time: 0.5104712
-              value: 0.46408838
+              time: 0.5603217
+              value: 0.32954544
               inSlope: 1.2531073
               outSlope: 1.2531073
               tangentMode: 0
