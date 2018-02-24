@@ -289,6 +289,9 @@ public partial class MenuButtonEvents : MonoBehaviour
             case (int)BackButtons.about:
                 MenuHumanAnimation.About_Back();
                 doAnchorPosXShowAndHide(MainMenu, AboutPanel);
+
+                Camera.transform.DOMove(new Vector3(0, 1, -20), 0.3f);
+                Camera.transform.DORotate(new Vector3(0, 0, 0), 0.3f);
                 break;
         }
     }
@@ -376,6 +379,8 @@ public partial class MenuButtonEvents : MonoBehaviour
         MenuHumanAnimation.About();
 
         doAnchorPosXShowAndHide(AboutPanel, MainMenu);
+        Camera.transform.DOMove(new Vector3(-9, -2, -10), 0.3f);
+        Camera.transform.DORotate(new Vector3(-2, 8, 0), 0.3f);
     }
 
     void Exit()
