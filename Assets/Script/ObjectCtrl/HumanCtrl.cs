@@ -57,7 +57,10 @@ public class HumanCtrl : ObjectCtrl
     public float MouseX_speed;              //水平鼠标偏移速度
     public Transform gunFrom_start;           //枪起点
     public Transform gunFrom_end;           //枪结束点
-
+    public bool Animator_state=true;             //动画开启?
+    public float squat_y_move_speed;       //移动y处理速度
+    public float squat_x_move_speed;       //移动x处理速度
+    public bool Jump_state;                 //跳跃状态
 
     protected virtual void Start()
     {
@@ -90,8 +93,7 @@ public class HumanCtrl : ObjectCtrl
             #endregion
             //人物动画控制
             #region humanAnimation
-            //平滑旋转
-
+            if (Animator_state) { 
             //旋转镜头直接赋值
             if (Input.GetAxis("Mouse X")>=0.2f&& Input.GetAxis("Mouse X") >0f)
             {
@@ -144,7 +146,7 @@ public class HumanCtrl : ObjectCtrl
                 //Move_state = false;                                         //关闭人物移动方法
             }
             //没跑时枪的动作
-            else if (Animator.GetFloat("MoveY") <=1.1f&&!squat_state&& squat_up_end)
+            else if (Animator.GetFloat("MoveY") <=1.1f&&!squat_state&& squat_up_end||squat_state)
             {
                 //开启上半身部分ik 
                 //leftHandIK_state = true;
@@ -164,47 +166,71 @@ public class HumanCtrl : ObjectCtrl
                 Animator.SetFloat("SquatX", move_x_Input);
                 Animator.SetFloat("SquatY", move_y_Input);
             }
+            //跳跃按钮
+            Animator.SetBool("Jump",Jump_state);
             //跳跃动画判断
             if (jump_Input && climb_1_check&& gorundFrom_check)
             {
-                Animator.SetFloat("JumpY", 3);//执行翻墙
+                //执行翻墙1
+                Animator.SetFloat("JumpY", 1);
+                Animator.SetFloat("JumpX", 2);
             }
             else if (jump_Input && run_Input_speed != 0 && !climb_1_check && gorundFrom_check)
             {
-                Animator.SetFloat("JumpY", 2);//执行向前大跳
+                Jump_state = true;//开启跳跃按钮
+                //执行向前大跳
+                Animator.SetFloat("JumpY", 2);
+                Animator.SetFloat("JumpX", 0);
             }
-            else if (jump_Input && run_Input_speed == 0 && !climb_1_check && gorundFrom_check)
+            else if (jump_Input && run_Input_speed == 0 && !climb_1_check && gorundFrom_check&&!squat_state)
             {
-                Animator.SetFloat("JumpY", 1);//小跳
+                //if (squat_y_move_speed!=0|| squat_x_move_speed != 0)
+                //{
+                        Jump_state = true;//开启跳跃按钮
+                        //乱跳
+                        Animator.SetFloat("JumpY", move_y_Input);
+                        Animator.SetFloat("JumpX", move_x_Input);
+                //    }
+                //else if (squat_y_move_speed==0&& squat_x_move_speed==0)
+                //{
+                //        Jump_state = true;//开启跳跃按钮
+                //        //原地跳
+                //        Animator.SetFloat("JumpY", 0.5f);
+                //        Animator.SetFloat("JumpX", 0);
+                //}
+                
             }
             //如果角色在空中就施加重力
             cf.force = ((!gorundFrom_check) ? new Vector3(0, - 100, 0) : cf.force = new Vector3(0, - 10, 0));//返回重力或初始化重力
             //角色落地判断
             Animator.SetBool("GroundFrom", gorundFrom_check);
-            //摄像机位置等于眼睛位置
-            Carama_tf.position = eyesHome.position;
+
             //当前有枪？
             if (Gun_1_have)
             {
 
             }
+            }
             #endregion
-
+            
             //人物移动
             #region humanMove
             if (Move_state)
             {
                 //移动w，a，s，d,shift
-                float squat_y_move_speed = ((squat_state) ? move_y_Input_speed * 0.7f : move_y_Input_speed);//返回蹲或起的前后移动速度
-                float squat_x_move_speed = ((squat_state) ? move_x_Input_speed * 0.7f : move_x_Input_speed);//返回蹲或起的左右移动速度
+                 squat_y_move_speed = ((squat_state) ? move_y_Input_speed * 0.7f : move_y_Input_speed);//返回蹲或起的前后移动速度
+                 squat_x_move_speed = ((squat_state) ? move_x_Input_speed * 0.7f : move_x_Input_speed);//返回蹲或起的左右移动速度
                 float run_speed = ((run_Input_speed == 1) ? 36 : 0);
                 transform.Translate(new Vector3(0, 0, squat_y_move_speed ) * Time.deltaTime * (move_speed+ run_speed));     //前后移动
                 transform.Translate(new Vector3(squat_x_move_speed, 0, 0) * Time.deltaTime * move_speed);                //左右移动
             }
             #endregion
-
+            //人物视角控制
             #region camera
-            //相机控制。
+            //摄像机位置等于眼睛位置
+            Carama_tf.position = eyesHome.position;
+
+            //相机控制
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x,
                 transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX, 
                 transform.localEulerAngles.z);
@@ -216,7 +242,7 @@ public class HumanCtrl : ObjectCtrl
             CameraPosition.transform.localEulerAngles = new Vector3(-rotationY, 0, 0);
 
             #endregion
-
+            
             Refer.transform.localEulerAngles = CameraPosition.localEulerAngles;
 
         }
@@ -237,9 +263,20 @@ public class HumanCtrl : ObjectCtrl
         //jumps们的事件
         if (start == "jumps_start")
         {
-            IsCtrl = false;         //关闭控制
+            //IsCtrl = false;         //关闭控制
+            Animator_state = false;     //关闭动画
+            Move_state = false;     //关闭移动
             Animator.applyRootMotion = true;        //开启动画控制
-            cc.enabled = false;
+            //cc.enabled = false;
+        }
+        //run_jumps们的事件
+        if (start == "run_jumps_start")
+        {
+            //IsCtrl = false;         //关闭控制
+            Animator_state = false;     //关闭动画
+            Move_state = false;     //关闭移动
+            Animator.applyRootMotion = true;        //开启动画控制
+            //cc.enabled = false;
         }
         //jumpdown的事件
         if (start == "jumpdown_start")
@@ -263,10 +300,28 @@ public class HumanCtrl : ObjectCtrl
         //jumps们的事件
         if (end == "jumps_end")
         {
-            IsCtrl = true;         //开启控制
+            Jump_state = false;//关闭跳跃按钮
+            //IsCtrl = true;         //开启控制
+            Animator_state = true;     //开启动画
+            Move_state = true;     //开启移动
             Animator.applyRootMotion = false;      //关闭动画控制
-            cc.enabled = true;                      //关闭碰撞器
+            //cc.enabled = true;                      //开启碰撞器
             Animator.SetFloat("JumpY", 0);      //重新赋值没有跳跃类型
+            Animator.SetFloat("JumpX", 0);      //重新赋值没有跳跃类型
+            Debug.Log("跳跃结束");
+        }
+        //run_jumps们的事件
+        if (end == "run_jumps_end")
+        {
+            Jump_state = false;//关闭跳跃按钮
+            //IsCtrl = true;         //开启控制
+            Animator_state = true;     //开启动画
+            Move_state = true;     //开启移动
+            Animator.applyRootMotion = false;      //关闭动画控制
+            //cc.enabled = true;                      /开启碰撞器
+            Animator.SetFloat("JumpY", 0);      //重新赋值没有跳跃类型
+            Animator.SetFloat("JumpX", 0);      //重新赋值没有跳跃类型
+            Debug.Log("跳跃结束");
         }
         //jumpdown的事件
         if (end == "jumpdown_end")
