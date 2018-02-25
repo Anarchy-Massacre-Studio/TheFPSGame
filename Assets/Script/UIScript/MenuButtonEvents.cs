@@ -276,22 +276,27 @@ public partial class MenuButtonEvents : MonoBehaviour
 
     public void Back(int i)
     {
+        Action action = () =>
+        {
+            Camera.transform.DOMove(new Vector3(0, 1, -20), 0.3f);
+            Camera.transform.DORotate(new Vector3(0, 0, 0), 0.3f);
+        };
+
         switch(i)
         {
             case (int)BackButtons.play:
-
+                action();
                 break;
 
             case (int)BackButtons.setting:
-
+                action();
                 break;
 
             case (int)BackButtons.about:
                 MenuHumanAnimation.About_Back();
                 doAnchorPosXShowAndHide(MainMenu, AboutPanel);
 
-                Camera.transform.DOMove(new Vector3(0, 1, -20), 0.3f);
-                Camera.transform.DORotate(new Vector3(0, 0, 0), 0.3f);
+                action();
                 break;
         }
     }
@@ -342,7 +347,9 @@ public partial class MenuButtonEvents : MonoBehaviour
 
     void Play()
     {
-
+        doAnchorPosXShowAndHide(true, MainMenu, null);
+        Camera.transform.DOMove(new Vector3(168, 8, -36), 3f);
+        Camera.transform.DORotate(new Vector3(1.7f, 147f, 0), 3f);
     }
 
     void Equip()
