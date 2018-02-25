@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: d1708b454a1733f419af0d2e65edac26
-timeCreated: 1519230637
+guid: 8321b00806836d843af1aa5ad9f7d31d
+timeCreated: 1519567394
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -38,8 +38,8 @@ ModelImporter:
     100060: mixamorig:Spine
     100062: mixamorig:Spine1
     100064: mixamorig:Spine2
-    100066: //RootNode
-    100068: "\u7ACB\u65B9\u4F53"
+    100066: "\u7ACB\u65B9\u4F53"
+    100068: //RootNode
     400000: mixamorig:Head
     400002: mixamorig:HeadTop_End
     400004: mixamorig:Hips
@@ -73,11 +73,11 @@ ModelImporter:
     400060: mixamorig:Spine
     400062: mixamorig:Spine1
     400064: mixamorig:Spine2
-    400066: //RootNode
-    400068: "\u7ACB\u65B9\u4F53"
+    400066: "\u7ACB\u65B9\u4F53"
+    400068: //RootNode
     2100000: Material
     4300000: "\u7ACB\u65B9\u4F53"
-    7400000: climb_2
+    7400000: mixamo.com
     9500000: //RootNode
     13700000: "\u7ACB\u65B9\u4F53"
   externalObjects: {}
@@ -106,49 +106,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: climb_2
-      takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 34
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: 0
-        functionName: event_jump1_start
-        data: climb2_start
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.92930305
-        functionName: event_jump1_end
-        data: climb2_end
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []

@@ -29,9 +29,12 @@ public class HumanCtrl : ObjectCtrl
     public bool squat_up_end = true;       //角色蹲下到站立状态结束了？
     public float move_speed=15;             //角色移动速度
     public bool climb_1_check = false;      //检测前方是否是小墙
+    public bool climb_2_check = false;      //检测前方是否是中墙
     public bool gorundFrom_check = false;   //在地面？
-    public Transform walls_start_Check;     //墙壁检测器官起点
+    public Transform walls_1start_Check;     //墙壁检测器官起点1
     public Transform walls_1end_Check;      //墙壁检测器官终点1
+    public Transform walls_2start_Check;     //墙壁检测器官起点
+    public Transform walls_2end_Check;      //墙壁检测器官终点1
     public Transform ground_start_Check;    //地面检测器官起点
     public Transform ground_end_Check;      //地面检测器官终点
     public CapsuleCollider cc;              //角色碰撞器
@@ -86,8 +89,10 @@ public class HumanCtrl : ObjectCtrl
             //Debug.Log(CharacterController.isGrounded);
             //状态检测
             #region humanCheck
-            //墙壁检测
-            climb_1_check = ((Physics.Linecast(walls_start_Check.position, walls_1end_Check.position, 1 << LayerMask.NameToLayer("Wall_1"))) ? climb_1_check =true : climb_1_check = false);
+            //墙壁检测1
+            climb_1_check = ((Physics.Linecast(walls_1start_Check.position, walls_1end_Check.position, 1 << LayerMask.NameToLayer("Wall_1"))) ? climb_1_check =true : climb_1_check = false);
+            //墙壁检测2
+            climb_2_check = ((Physics.Linecast(walls_2start_Check.position, walls_2end_Check.position, 1 << LayerMask.NameToLayer("Wall_2"))) ? climb_2_check = true : climb_2_check = false);
             //地面检测
             gorundFrom_check = ((Physics.Linecast(ground_start_Check.position, ground_end_Check.position, 1 << LayerMask.NameToLayer("Ground"))) ? gorundFrom_check = true : gorundFrom_check = false);
             #endregion
@@ -168,9 +173,18 @@ public class HumanCtrl : ObjectCtrl
             }
             //跳跃按钮
             Animator.SetBool("Jump",Jump_state);
+            //爬中墙动画判断
+            if (climb_2_check)
+            {
+                Jump_state = true;      //开启跳跃按钮
+                //执行翻墙2
+                Animator.SetFloat("JumpY", 2);
+                Animator.SetFloat("JumpX", 2);
+            }
             //跳跃动画判断
             if (jump_Input && climb_1_check&& gorundFrom_check)
             {
+                Jump_state = true;      //开启跳跃按钮
                 //执行翻墙1
                 Animator.SetFloat("JumpY", 1);
                 Animator.SetFloat("JumpX", 2);
@@ -184,20 +198,11 @@ public class HumanCtrl : ObjectCtrl
             }
             else if (jump_Input && run_Input_speed == 0 && !climb_1_check && gorundFrom_check&&!squat_state)
             {
-                //if (squat_y_move_speed!=0|| squat_x_move_speed != 0)
-                //{
-                        Jump_state = true;//开启跳跃按钮
-                        //乱跳
-                        Animator.SetFloat("JumpY", move_y_Input);
-                        Animator.SetFloat("JumpX", move_x_Input);
-                //    }
-                //else if (squat_y_move_speed==0&& squat_x_move_speed==0)
-                //{
-                //        Jump_state = true;//开启跳跃按钮
-                //        //原地跳
-                //        Animator.SetFloat("JumpY", 0.5f);
-                //        Animator.SetFloat("JumpX", 0);
-                //}
+
+                Jump_state = true;//开启跳跃按钮
+                //乱跳
+                Animator.SetFloat("JumpY", move_y_Input);
+                Animator.SetFloat("JumpX", move_x_Input);
                 
             }
             //如果角色在空中就施加重力
@@ -290,6 +295,26 @@ public class HumanCtrl : ObjectCtrl
             squat_up_end = false;          //蹲站状态结束?
             Move_state = false;         //关闭移动控制
         }
+        //climb1的事件
+        if (start == "climb1_start")
+        {
+            //transform.position += new Vector3(0,2,0);
+            leftHandIK_state = false;   //关闭左手ik
+            cc.enabled = false;     //关闭碰撞器   
+            Animator_state = false;     //关闭动画
+            Move_state = false;     //关闭移动
+            Animator.applyRootMotion = true;        //开启动画控制
+        }
+        //climb2的事件
+        if (start == "climb2_start")
+        {
+            //transform.position += new Vector3(0,2,0);
+            leftHandIK_state = false;   //关闭左手ik
+            cc.enabled = false;     //关闭碰撞器   
+            Animator_state = false;     //关闭动画
+            Move_state = false;     //关闭移动
+            Animator.applyRootMotion = true;        //开启动画控制
+        }
     }
     /// <summary>
     /// 跳跃事件结束
@@ -334,6 +359,32 @@ public class HumanCtrl : ObjectCtrl
         {
             squat_up_end = true;          //蹲站状态结束?
             Move_state = true;         //开启移动控制
+        }
+        //climb1的事件
+        if (end == "climb1_end")
+        {
+            Jump_state = false;//关闭跳跃按钮
+            leftHandIK_state = true;   //开启左手ik
+            Animator_state = true;     //开启动画
+            Move_state = true;          //开启移动
+            Animator.applyRootMotion = false;        //关闭动画控制
+            cc.enabled = true;     //开启碰撞器   
+            Animator.SetFloat("JumpY", 0);      //重新赋值没有跳跃类型
+            Animator.SetFloat("JumpX", 0);      //重新赋值没有跳跃类型
+            Debug.Log("翻墙结束");
+        }
+        //climb2的事件
+        if (end == "climb2_end")
+        {
+            Jump_state = false;//关闭跳跃按钮
+            leftHandIK_state = true;   //开启左手ik
+            Animator_state = true;     //开启动画
+            Move_state = true;          //开启移动
+            Animator.applyRootMotion = false;        //关闭动画控制
+            cc.enabled = true;     //开启碰撞器   
+            Animator.SetFloat("JumpY", 0);      //重新赋值没有跳跃类型
+            Animator.SetFloat("JumpX", 0);      //重新赋值没有跳跃类型
+            Debug.Log("翻墙结束");
         }
     }
 
