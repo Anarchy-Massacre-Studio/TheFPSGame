@@ -111,7 +111,7 @@ ModelImporter:
       name: newclimb1
       takeName: mixamo.com
       firstFrame: 12
-      lastFrame: 55
+      lastFrame: 67
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -138,7 +138,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6888328
+      - time: 0.89186317
         functionName: event_jump1_end
         data: climb1_end
         objectReferenceParameter: {instanceID: 0}
