@@ -431,7 +431,7 @@ public partial class MenuButtonEvents : MonoBehaviour
     private void Start()
     {
         Camera.transform.DOMoveZ(-20, 1f).OnComplete(() => { doAnchorPosXShowAndHide(MainMenu, null); });
-        Mask.DOColor(new Color(0, 0, 0, 0), 1f).OnComplete(() => Mask.gameObject.SetActive(false));
+        Mask.DOFade(0, 1f).OnComplete(() => Mask.gameObject.SetActive(false));
 
         GameObject color_table_button = Resources.Load<GameObject>("ColorTableButton");
 
