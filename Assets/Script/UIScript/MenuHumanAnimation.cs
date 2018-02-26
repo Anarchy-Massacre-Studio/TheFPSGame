@@ -41,6 +41,8 @@ public class MenuHumanAnimation : MonoBehaviour
     public void Course() => Animator.SetBool("isReady", true);
     #endregion
 
+    public void Play() => Animator.SetBool("isReady", true);
+
     public void About() => Animator.SetBool("isStand_About", true);
     public void About_Back() => Animator.SetBool("isStand_About", false);
 
