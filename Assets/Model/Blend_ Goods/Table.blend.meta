@@ -1,25 +1,16 @@
 fileFormatVersion: 2
-guid: 6cdb2283b5839354ea64399a94f0c5b9
-timeCreated: 1519058344
+guid: 817a5113154d4c34f941c5ab7a580ddd
+timeCreated: 1519539829
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: "\u67F1\u4F53"
-    100004: "\u7ACB\u65B9\u4F53"
     400000: //RootNode
-    400002: "\u67F1\u4F53"
-    400004: "\u7ACB\u65B9\u4F53"
-    2100000: Material
-    2100002: "\u6750\u8D28"
-    2100004: unnamed
-    2300000: "\u67F1\u4F53"
-    2300002: "\u7ACB\u65B9\u4F53"
-    3300000: "\u67F1\u4F53"
-    3300002: "\u7ACB\u65B9\u4F53"
+    2100000: unnamed
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: "\u7ACB\u65B9\u4F53"
-    4300002: "\u67F1\u4F53"
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}

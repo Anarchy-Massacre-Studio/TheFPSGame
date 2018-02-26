@@ -15,6 +15,7 @@ public partial class MenuButtonEvents : MonoBehaviour
     public RectTransform BackButton;
 
     public RectTransform MainMenu;
+    public RectTransform PlayMenu;
     public RectTransform EquipMenu;
     public RectTransform EquipMenu_Color;
     public RectTransform EquipMenu_Weapon;
@@ -36,6 +37,11 @@ public partial class MenuButtonEvents : MonoBehaviour
     private enum EquipMenuButtons : int { color, weapon, equip }
     private enum EquipColorMenuButtons : int { color, metallic, smooth, shine }
     private enum BackButtons : int { play, setting, about }
+
+    private void playReadyMusic()
+    {
+
+    }
 
     public void MainMenuEvents(int i) 
     {
@@ -66,6 +72,18 @@ public partial class MenuButtonEvents : MonoBehaviour
                 Exit();
                 break;
         }
+    }
+    public void PlayMenuEvent()
+    {
+        PlayMenu.DOAnchorPosX(500, 0.5f);
+        PlayMenu.DOLocalRotate(new Vector3(0, 180, 0), 0.3f);
+
+        Camera.transform.DOMove(new Vector3(0, 1, -20), 0.6f).SetEase(Ease.OutExpo);
+        Camera.transform.DORotate(new Vector3(0, 0, 0), 0.6f);
+
+        MenuHumanAnimation.Play();
+
+        Loading.SetActive(true);
     }
     public void EquipMenuEvents(int i)
     {
@@ -276,22 +294,29 @@ public partial class MenuButtonEvents : MonoBehaviour
 
     public void Back(int i)
     {
+        Action<TweenCallback> action = (TweenCallback callback) =>
+        {
+            Camera.transform.DOMove(new Vector3(0, 1, -20), 0.6f).SetEase(Ease.OutExpo);
+            Camera.transform.DORotate(new Vector3(0, 0, 0), 0.6f).OnComplete(callback);
+        };
+
         switch(i)
         {
             case (int)BackButtons.play:
-
+                action(() => doAnchorPosXShowAndHide(MainMenu, null));
+                PlayMenu.DOAnchorPosX(500, 0.5f);
+                PlayMenu.DOLocalRotate(new Vector3(0, 180, 0), 0.3f);
                 break;
 
             case (int)BackButtons.setting:
-
+                action(null);
                 break;
 
             case (int)BackButtons.about:
                 MenuHumanAnimation.About_Back();
                 doAnchorPosXShowAndHide(MainMenu, AboutPanel);
 
-                Camera.transform.DOMove(new Vector3(0, 1, -20), 0.3f);
-                Camera.transform.DORotate(new Vector3(0, 0, 0), 0.3f);
+                action(null);
                 break;
         }
     }
@@ -306,14 +331,14 @@ public partial class MenuButtonEvents : MonoBehaviour
         if (show != null)
         {
             show.DOAnchorPosX(0, 0.5f);
-            show.DORotate(new Vector3(0, 20, 0), 0.3f);
+            show.DOLocalRotate(new Vector3(0, 20, 0), 0.3f);
         }
         if (hide != null)
         {
             foreach (var h in hide)
             {
                 h.DOAnchorPosX(500, 0.5f);
-                h.DORotate(new Vector3(0, 180, 0), 0.3f);
+                h.DOLocalRotate(new Vector3(0, 180, 0), 0.3f);
             }
         }
     }
@@ -325,14 +350,14 @@ public partial class MenuButtonEvents : MonoBehaviour
             if (hide != null)
             {
                 hide.DOAnchorPosX(500, 0.5f);
-                hide.DORotate(new Vector3(0, 180, 0), 0.3f);
+                hide.DOLocalRotate(new Vector3(0, 180, 0), 0.3f);
             }
             if (show != null)
             {
                 foreach (var s in show)
                 {
                     s.DOAnchorPosX(0, 0.5f);
-                    s.DORotate(new Vector3(0, 20, 0), 0.3f);
+                    s.DOLocalRotate(new Vector3(0, 20, 0), 0.3f);
                 }
             }
         }
@@ -342,7 +367,9 @@ public partial class MenuButtonEvents : MonoBehaviour
 
     void Play()
     {
-
+        doAnchorPosXShowAndHide(true, MainMenu, null);
+        Camera.transform.DOMove(new Vector3(168, 8, -36), 3f).SetEase(Ease.OutCubic);
+        Camera.transform.DORotate(new Vector3(1.7f, 147f, 0), 3f).OnComplete(() => doAnchorPosXShowAndHide(PlayMenu, null));
     }
 
     void Equip()
@@ -404,7 +431,7 @@ public partial class MenuButtonEvents : MonoBehaviour
     private void Start()
     {
         Camera.transform.DOMoveZ(-20, 1f).OnComplete(() => { doAnchorPosXShowAndHide(MainMenu, null); });
-        Mask.DOColor(new Color(0, 0, 0, 0), 1f).OnComplete(() => Mask.gameObject.SetActive(false));
+        Mask.DOFade(0, 1f).OnComplete(() => Mask.gameObject.SetActive(false));
 
         GameObject color_table_button = Resources.Load<GameObject>("ColorTableButton");
 
