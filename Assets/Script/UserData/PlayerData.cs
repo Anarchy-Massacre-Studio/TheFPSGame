@@ -11,6 +11,9 @@ public static class PlayerData
     public static Material PlayerMaterial;
     public static Color[] ColorTable = null;
 
+    public static GameObject FirstWeapon;
+    public static GameObject SecondWeapon;
+
     static XDocument playerData;
 
     static PlayerData()

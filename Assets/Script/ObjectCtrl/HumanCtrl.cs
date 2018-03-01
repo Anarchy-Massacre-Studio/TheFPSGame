@@ -20,8 +20,8 @@ public class HumanCtrl : ObjectCtrl
     public float sensitivityX = 10F;
     public float sensitivityY = 10F;
 
-    public float minimumY = -60F;
-    public float maximumY = 60F;
+    public float minimumY = -80F;
+    public float maximumY = 80F;
 
     float rotationY = 0F;
 

@@ -256,6 +256,7 @@ public partial class MenuButtonEvents : MonoBehaviour
         switch(parent_name)
         {
             case "EquipMenu":
+
                 doAnchorPosXShowAndHide(MainMenu, EquipMenu, BackButton);
 
                 Camera.transform.DOMove(new Vector3(0, 1f, -20f), 0.5f);
@@ -303,6 +304,7 @@ public partial class MenuButtonEvents : MonoBehaviour
         switch(i)
         {
             case (int)BackButtons.play:
+
                 action(() => doAnchorPosXShowAndHide(MainMenu, null));
                 PlayMenu.DOAnchorPosX(500, 0.5f);
                 PlayMenu.DOLocalRotate(new Vector3(0, 180, 0), 0.3f);
